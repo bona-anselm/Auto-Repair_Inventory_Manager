@@ -1,5 +1,7 @@
 # AUTO REPAIR INVENTORY MANAGER
 --------------------------------
+Our ALX webstack portfolio project
+
 To be updated...
 
 
@@ -17,4 +19,9 @@ To be updated...
 
 ### Installation
 -----------------
+To be updated...
+
+
+# Contributors
+---------------
 To be updated...
