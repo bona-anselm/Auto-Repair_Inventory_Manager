@@ -1,4 +1,4 @@
-# AUTO REPAIR INVENTORY MANAGER
+# AUTO-REPAIR INVENTORY MANAGER
 --------------------------------
 Our ALX webstack portfolio project
 
