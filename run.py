@@ -1,4 +1,7 @@
-from autostock import app
+from autostock import create_app
+
+
+app = create_app()
 
 
 
