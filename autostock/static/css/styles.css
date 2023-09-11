@@ -1,0 +1,350 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/*# sourceMappingURL=normalize.min.css.map */
+/*  Incorporating transitions */
+
+:root {
+    /* setting color */
+    --color-primary: #220e5b;
+    --color-black: #090909;
+    --text-color: var(--color-black);
+    --color-white: #ffffff;
+    --color-background: #f6f6f6;
+    /* Intregrating google font*/
+    --font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial,
+      sans-serif;
+    --font-family-title: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-size-small: 1.2rem;
+    --font-size-medium: 1.4rem;
+    --font-size-large: 1.8rem;
+    --font-size-x-large: 2.3rem;
+    --font-size-xx-large: 3.5rem;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+    /* Navigation */
+    --nav-item-font-family: var(--font-family-title);
+    --nav-item-font-weight: var(--font-weight-bold);
+    --nav-item-font-size: var(--font-size-medium);
+    --nav-item-letter-spacing: 0.04rem;
+    --nav-item-display: inline-block;
+    --nav-item-margin: 0 0 3rem 0;
+    --nav-item-link-hover: var(--color-white);
+    --section-tagline-margin: 0;
+    /* Button */
+    --button-display: inline-block;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    font-size: 62.5%;
+  }
+  
+  body {
+    background: linear-gradient(180deg, var(--color-background), #689fc4);
+    color: var(--color-primary);
+    margin-top: 5rem;
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-primary);
+    font-family: var(--font-family-title);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  a:hover {
+    transform: scale(1.2); /* Zoom in by 20% */
+    color: white;
+  }
+  
+  .navbar-brand.mr-4 {
+    transform: none;
+    font-size: var(--font-size-medium);
+  }
+  
+  .navbar-nav {
+    gap: 10px;
+  }
+  
+  .bg-steel {
+    background-color: var(--color-primary); /* background of the header*/
+  }
+  
+  .site-header .navbar-nav .nav-link {
+    color: #cbd5db;
+  }
+  
+  .site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
+  }
+  
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+  
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    width: 70%;
+  }
+  
+  .article-title {
+    color: var(--color-primary);
+  }
+  
+  a.article-title:hover {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  
+  .article-content {
+    white-space: pre-line;
+  }
+  
+  .article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+  }
+  
+  .article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3;
+  }
+  
+  .article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+  
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .account-heading {
+    font-size: 2.5rem;
+  }
+  
+  .btn.btn-outline-info {
+    display: var(--button-display);
+    padding: var(--button-padding);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-size: var(--font-size-medium);
+    padding: 5;
+    display: var(--button-display);
+  }
+  
+  .btn.btn-outline-info:hover {
+    background: #220e5b;
+    color: var(--color-white);
+  }
+  
+  .row.dashboard {
+    background: var(--color-primary);
+    padding: 15;
+    grid-row: inherit;
+  }
+  
+  .col-md-3 {
+    margin-top: 20;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dbd5d5;
+  }
+  
+  @keyframes mymove {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 0%;
+    }
+  }
+  
+  @keyframes moveText {
+    0%,
+    100% {
+      left: -50%; /* Start from the left side of the screen */
+    }
+    50% {
+      left: 100%; /* Move to the right side of the screen */
+    }
+  }
+  
+  .chart {
+    background-image: url("../images/chart.png");
+    background-size: 70% 100%;
+    background-repeat: repeat-x;
+    animation: mymove 10s infinite;
+    margin: 15px;
+  }
+  
+  .moving-text {
+    position: relative; /* Make it a positioned element */
+    white-space: nowrap; /* Prevent text from wrapping */
+    animation: moveText 60s linear infinite; /* Apply the animation to the text */
+    letter-spacing: 2px;
+  }
+  
+  .btn.btn-info.dropdown-toggle {
+    background-color: var(--color-primary);
+    font-size: var(--font-size-medium);
+  }
+  
+  .dropdown-menu.show {
+    background: var(--color-background);
+    border: none;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  
+  .dropdown-menu.show button {
+    margin: 2;
+    padding: 2;
+    font-size: var(--font-size-small);
+  }
+  
+  .bi.bi-arrow-up-right {
+    color: red;
+  }
+  
+  .bi.bi-arrow-up-right:hover {
+    color: var(--color-primary);
+  }
+  
+  /* adding space btw the charts*/
+  .col-md-6 {
+    padding: 10px;
+  }
+  
+  .col-md-12 h3 {
+    font-size: var(--font-size-x-large);
+    color: var(--color-primary);
+  }
+  
+  /* Invoice classes used to style Supplier Details Template*/
+  
+  .invoice-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .invoice-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .invoice-header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  .invoice-info {
+    margin-top: 20px;
+  }
+  .invoice-details {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  .billing-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .invoice-table {
+    margin-top: 20px;
+  }
+  .invoice-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .invoice-table table,
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid #ccc;
+  }
+  .invoice-table th,
+  .invoice-table td {
+    padding: 8px;
+    text-align: left;
+  }
+  .invoice-total {
+    margin-top: 20px;
+    text-align: right;
+  }
+  
+  /* End of Invoice classes used to style Supplier Details Template*/
+  /* styling the account section */
+  .content-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  /* Styling the media (profile picture and user details) */
+  .media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .rounded-circle.account-img {
+    width: 100px; /* Adjusting the size of the profile picture */
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover; /* Maintaining the aspect ratio of the image */
+    margin-right: 20px;
+  }
+  
+  .media-body {
+    flex: 1;
+  }
+  
+  .container.background {
+    margin-top: 20;
+    background: var(--color-white);
+    width: 80%;
+  }
+  
+  .btn.btn-sm.btn-secondary {
+    background-color: var(--color-primary);
+    font-size: var(--font-size-small);
+  }
+  
+  .btn.btn-primary {
+    background-color: var(--color-primary);
+    font-size: var(--font-size-small);
+  }
+  
+  .card-title {
+    color: var(--color-primary);
+  }
+  
+  .container.mt-4 {
+    background-color: var(--color-background);
+  }
+  
