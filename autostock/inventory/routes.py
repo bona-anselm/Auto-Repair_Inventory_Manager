@@ -48,7 +48,6 @@ def add_inventory():
     return render_template('add_inventory.html', title='Add Inventory', legend='Add Inventory', form=form)
 
 
-
 @inventory.route('/inventory/low_inventory', methods=['GET', 'POST'])
 @login_required
 def low_inventory():

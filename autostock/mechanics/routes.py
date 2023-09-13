@@ -1,25 +1,27 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
-from autostock.mechanics.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
+from autostock.mechanics.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
 from autostock.mechanics.utils import save_picture
-from autostock import create_app, db, bcrypt
+from autostock import db, bcrypt
+#from flask_mail import Message
+from sqlalchemy import func
 from autostock.models import Mechanics, Supplier, InventoryItem, InventoryRequest
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-mechanics = Blueprint('mechanics', __name__)
+users = Blueprint('users', __name__)
 
 
-@mechanics.route('/create_mechanic', methods=['GET', 'POST'])
+@users.route('/create_mechanic', methods=['GET', 'POST'])
 def create_mechanic():
     #if not current_user.is_authenticated or not current_user.is_superuser:
         #flash('You are not authorized to access this page.', 'danger')
-        #return redirect(url_for('mechanics.mechanic_dashboard'))
+        #return redirect(url_for('users.mechanic_dashboard'))
     form = CreateMechanicForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         is_superuser = form.is_superuser.data
         user = Mechanics(
-            mechanic=form.mechanic.data,
+            username=form.mechanic.data,
             email=form.email.data,
             password=hashed_password,
             is_superuser = is_superuser
@@ -27,17 +29,17 @@ def create_mechanic():
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.mechanic.data}!', 'success')
-        return redirect(url_for('mechanics.login'))
+        return redirect(url_for('users.login'))
     return render_template('create_mechanic.html', title='Create Mechanic', form=form)
 
 
-@mechanics.route('/login', methods=['GET', 'POST'])
+@users.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         if current_user.is_superuser:
-            return redirect(url_for('mechanics.owner_dashboard'))
+            return redirect(url_for('users.owner_dashboard'))
         else:
-            return redirect(url_for('mechanics.mechanic_dashboard'))
+            return redirect(url_for('users.mechanic_dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
         user = Mechanics.query.filter_by(email=form.email.data).first()
@@ -45,21 +47,21 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
             if user.is_superuser:
-                return redirect(next_page) if next_page else redirect(url_for('mechanics.owner_dashboard'))
+                return redirect(next_page) if next_page else redirect(url_for('users.owner_dashboard'))
             else:
-                return redirect(next_page) if next_page else redirect(url_for('mechanics.mechanic_dashboard'))
+                return redirect(next_page) if next_page else redirect(url_for('users.mechanic_dashboard'))
         else:
             flash('Login Unsuccessful, check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
-@mechanics.route('/logout')
+@users.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('mechanics.login'))
+    return redirect(url_for('users.login'))
 
 
-@mechanics.route('/account', methods=['GET', 'POST'])
+@users.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = UpdateAccountForm()
@@ -71,7 +73,7 @@ def account():
         current_user.email = form.email.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
-        return redirect(url_for('mechanics.account'))
+        return redirect(url_for('users.account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
@@ -79,14 +81,14 @@ def account():
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
 
-@mechanics.route('/owner/dashboard', methods=(['GET', 'POST']))
+@users.route('/owner/dashboard', methods=(['GET', 'POST']))
 @login_required
 def owner_dashboard():
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     total_suppliers = Supplier.query.count()
-    mechanics = Mechanics.query.filter_by(is_superuser=False).count()
+    mechanics= Mechanics.query.filter_by(is_superuser=False).count()
     total_products = InventoryItem.query.count()
     low_stock = InventoryItem.query.filter(InventoryItem.quantity <= InventoryItem.low_stock_threshold).all()
     total_low_stock = len(low_stock)
@@ -103,8 +105,74 @@ def owner_dashboard():
 
 
 
+@users.route('/mechanic/dashboard', methods=['GET', 'POST'])
+@login_required
+def mechanic_dashboard():
+    total_suppliers = Supplier.query.count()
+    mechanics = Mechanics.query.filter_by(is_superuser=False).count()
+    total_products = InventoryItem.query.count()
+    low_stock = InventoryItem.query.filter(InventoryItem.quantity <= InventoryItem.low_stock_threshold).all()
+    total_low_stock = len(low_stock)
+    stock_out =InventoryItem.query.filter(InventoryItem.quantity == 0).all()
+    total_stock_out = len(stock_out)
+    return render_template(
+                            'mechanic_dashboard.html',
+                            title='Mechanic Dashboard',
+                            total_suppliers=total_suppliers,
+                            mechanics=mechanics,
+                           total_products=total_products,
+                           total_low_stock=total_low_stock,
+                           total_stock_out=total_stock_out
+                        )
 
-@mechanics.route('/submit_request', methods=['GET', 'POST'])
+
+@users.route('/owner/dashboard/mechanics', methods=(['GET']))
+@login_required
+def mechanics():
+    users = Mechanics.query.filter_by(is_superuser = False).all() 
+    return render_template('mechanics.html', title='Mechanics', users=users)
+
+
+@users.route('/mechanic/<int:mechanic_id>/update', methods=(['GET', 'POST']))
+@login_required
+def update_mechanic(mechanic_id):
+    if not current_user.is_authenticated or not current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('users.mechanic_dashboard'))
+    mechanic = Mechanics.query.get_or_404(mechanic_id)
+    form = UpdateMechanicForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            mechanic.image_file = picture_file
+        mechanic.username = form.username.data
+        mechanic.email = form.email.data
+        db.session.commit()
+        flash('Mechanic updated successfully!', 'success')
+        return redirect(url_for('users.mechanics'))
+    elif request.method == 'GET':
+        form.username.data = mechanic.username
+        form.email.data = mechanic.email
+    image_file = url_for('static', filename='images/' + mechanic.image_file)
+    return render_template('udpate_mechanic.html', title=f"Update {mechanic.username}", mechanic=mechanic, image_file=image_file, form=form)
+
+
+
+@users.route('/mechanic/<int:mechanic_id>/delete', methods=['POST'])
+@login_required
+def delete_mechanic(mechanic_id):
+    if not current_user.is_authenticated or not current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('users.mechanic_dashboard'))
+    mechanic = Mechanics.query.get_or_404(mechanic_id)
+    db.session.delete(mechanic)
+    db.session.commit()
+    flash('Mechanic successfully deleted!', 'success')
+    return redirect(url_for('users.mechanics'))
+
+
+
+@users.route('/submit_request', methods=['GET', 'POST'])
 @login_required
 def submit_request():
     form = RequestForm()
@@ -118,7 +186,7 @@ def submit_request():
             # Check if quantity requested is greater than 0
             if quantity_requested <= 0:
                 flash('Quantity requested must be greater than 0.', 'danger')
-                return render_template('submit_request.html', title='Submit Request', form=form)
+                return render_template('users.submit_request.html', title='Submit Request', form=form)
 
             # Check if quantity requested is available in InventoryItem
             item = InventoryItem.query.get(item_id)
@@ -143,9 +211,94 @@ def submit_request():
             #mail.send(message)
 
             flash('Request submitted successfully!', 'success')
-            return redirect(url_for('mechanics.submit_request'))
+            return redirect(url_for('users.submit_request'))
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'danger')
 
     return render_template('submit_request.html', title='Submit Request', form=form)
+
+
+@users.route('/api/inventory-data')
+def get_inventory_supplier_data():
+    # Query the database to get the quantity of items supplied by each supplier
+    supplier_data = (
+        Supplier.query
+        .join(InventoryItem, Supplier.id == InventoryItem.supplier_id)
+        .with_entities(Supplier.name, func.sum(InventoryItem.quantity).label('total_quantity'))
+        .group_by(Supplier.name)
+        .all()
+    )
+
+    # Convert the data to a format suitable for returning as JSON
+    data_for_chart = [{'supplier': item[0], 'total_quantity': item[1]} for item in supplier_data]
+
+    return jsonify(data_for_chart)
+
+
+
+""" MECHANIC REQUEST ROUTES """
+
+@users.route('/view_requests', methods=['GET'])
+@login_required
+def view_requests():
+    # Fetch requests made by the current mechanic
+    mechanic_requests = (
+        InventoryRequest.query
+        .filter_by(user_id=current_user.id)
+        .join(InventoryItem)  # Join the InventoryItem table
+        .add_columns(InventoryItem.name, InventoryRequest.quantity_requested, InventoryRequest.status, InventoryRequest.request_timestamp)
+        .all()
+    )
+    return render_template('view_requests.html', title='View Requests', requests=mechanic_requests)
+
+
+
+@users.route('/manage_requests', methods=['GET', 'POST'])
+@login_required
+def manage_requests():
+    if not current_user.is_superuser:
+        flash('You do not have permission to access this page.', 'danger')
+        return redirect(url_for('users.mechanic_dashboard'))
+
+    # Fetch pending requests
+    pending_requests = InventoryRequest.query.filter_by(status='pending').all()
+    form = OwnerActionForm()
+
+    if request.method == 'POST':
+        request_id = request.form.get('request_id')
+        action = request.form.get('action') 
+
+        # Find the request by ID
+        request_item = InventoryRequest.query.get(request_id)
+        
+        if request_item:
+            if action == 'approve':
+                # Update the request status to approved
+                request_item.status = 'approved'
+
+                # Deduct quantity from InventoryItems
+                item = InventoryItem.query.get(request_item.item_id)
+                item.quantity -= request_item.quantity_requested
+
+                # Remove request from the list
+                pending_requests.remove(request_item)
+
+                db.session.commit()
+                flash('Request approved successfully!', 'success')
+            elif action == 'reject':
+                # Update the request status to rejected
+                request_item.status = 'rejected'
+
+                # Remove request from the list
+                pending_requests.remove(request_item)
+
+                db.session.commit()
+                flash('Request rejected!', 'success')
+            else:
+                flash('Invalid action.', 'danger')
+        else:
+            flash('Request not found.', 'danger')
+
+    return render_template('manage_requests.html', title='Manage Requests', form=form, request_items=pending_requests)
+

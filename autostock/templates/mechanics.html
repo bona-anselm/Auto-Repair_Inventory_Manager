@@ -1,53 +1,29 @@
-{% extends "base.html" %} {% block content %}
-<style>
-  /* Custom CSS for centering content and extending the page */
-  body {
-    background-image: linear-gradient(
-        rgba(34, 14, 91, 0.1),
-        rgba(34, 14, 91, 0.5)
-      ),
-      url("{{ url_for('static', filename='images/tools.jpg') }}");
-  }
-</style>
-<div class="inventory">
-  <h3 class="mt-4">Inventory Items</h3>
-  <div class="container mt-2 background mt-4">
-    <div class="col-md-2 float-left">
-      <div class="card p-2">
-        <a
-          class="btn btn-sm btn-secondary"
-          href="{{ url_for('users.submit_request') }}"
-          >Request Inventory</a
-        >
-      </div>
-    </div>
+{% extends 'base.html' %} {% block content %}
+<h2>Manage Mechanics</h2>
+<div class="container background">
     <div class="col-md-2 float-right">
       <div class="card p-2">
-        <a
-          class="btn btn-sm btn-secondary"
-          href="{{ url_for('inventory.add_inventory') }}"
-          >Add Item</a
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('users.create_mechanic') }}"
+          >Add Mechanic</a
         >
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Category</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for inventory in inventories %}
-        <tr>
-          <td>{{ inventory.id }}</td>
-          <td>{{ inventory.name }}</td>
-          <td>{{ inventory.quantity }}</td>
-          <td>{{ inventory.category }}</td>
-          <td>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Mechanic</th>
+        <th>Email</th>
+          <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
             <div class="dropdown">
               <button
                 class="btn btn-info dropdown-toggle"
@@ -59,9 +35,7 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <a
-                    href="{{ url_for('inventory.update_inventory', inventory_id=inventory.id) }}"
-                  >
+                  <a href="{{ url_for('users.update_mechanic', mechanic_id=user.id) }}">
                     <button class="btn btn-secondary btn-sm">Update</button>
                   </a>
                 </li>
@@ -70,7 +44,7 @@
                     type="button"
                     class="btn btn-danger btn-sm"
                     data-bs-toggle="modal"
-                    data-bs-target="#deleteModal{{ inventory.id }}"
+                    data-bs-target="#deleteModal{{ user.id }}"
                   >
                     Delete
                   </button>
@@ -80,9 +54,9 @@
             <!-- Modal -->
             <div
               class="modal fade"
-              id="deleteModal{{ inventory.id }}"
+              id="deleteModal{{ user.id }}"
               tabindex="-1"
-              aria-labelledby="deleteModalLabel{{ inventory.id }}"
+              aria-labelledby="deleteModalLabel{{ user.id }}"
               aria-hidden="true"
             >
               <div class="modal-dialog">
@@ -90,9 +64,9 @@
                   <div class="modal-header">
                     <h3
                       class="modal-title fs-5"
-                      id="deleteModalLabel{{ inventory.id }}"
+                      id="deleteModalLabel{{ user.id }}"
                     >
-                      Delete Inventory Item
+                      Delete Mechanic?
                     </h3>
                     <button
                       type="button"
@@ -110,7 +84,7 @@
                       Close
                     </button>
                     <form
-                      action="{{ url_for('inventory.delete_inventory', inventory_id=inventory.id) }}"
+                      action="{{ url_for('users.delete_mechanic', mechanic_id=user.id) }}"
                       method="POST"
                     >
                       <input
@@ -123,11 +97,13 @@
                 </div>
               </div>
             </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  {% endblock content %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Pagination links (if you're using Flask's pagination) -->
+  {{ users.links }}
 </div>
+
+{% endblock content %}

@@ -61,7 +61,7 @@
         <div class="card">
           <div class="card-body">
             <div class="float-right">
-              <a href="#"
+              <a href="{{ url_for('users.mechanics') }}"
                 ><i class="bi bi-arrow-up-right"></i
               ></a>
             </div>
@@ -82,7 +82,7 @@
       <div class="col-md-3 mt-4">
         <div class="card">
           <div class="card-body ml-5">
-            <a class="btn btn-primary" href="{{ url_for('mechanics.create_mechanic') }}"
+            <a class="btn btn-primary" href="{{ url_for('users.create_mechanic') }}"
               >Add Mechanics</a
             >
           </div>

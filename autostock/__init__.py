@@ -21,11 +21,11 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     
     from autostock.main.routes import main
-    from autostock.mechanics.routes import mechanics
+    from autostock.mechanics.routes import users
     from autostock.inventory.routes import inventory
     from autostock.suppliers.routes import supplier
     app.register_blueprint(main)
-    app.register_blueprint(mechanics)
+    app.register_blueprint(users)
     app.register_blueprint(inventory)
     app.register_blueprint(supplier)
 

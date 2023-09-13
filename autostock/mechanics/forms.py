@@ -54,6 +54,13 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('Email already taken')
             
 
+class UpdateMechanicForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Update')
+
+    
 class RequestForm(FlaskForm):
     item_id = SelectField('Item', coerce=int, validators=[DataRequired()])
     quantity_requested = IntegerField('Quantity', validators=[DataRequired()])

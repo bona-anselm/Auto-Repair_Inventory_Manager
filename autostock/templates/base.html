@@ -25,20 +25,19 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{{ url_for('main.index') }}">Home</a>
-                <a class="nav-item nav-link" href="#">Mechanic Dashboard</a>
+                <a class="nav-item nav-link" href="{{ url_for('users.mechanic_dashboard') }}">Mechanic Dashboard</a>
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
                 {% if current_user.is_authenticated %}
                   {% if current_user.is_superuser %}
-                    <a class="nav-item nav-link" href="{{ url_for('mechanics.owner_dashboard') }}">Owner Dashboard<a></a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.owner_dashboard') }}">Owner Dashboard<a></a>
                     <a class="nav-item nav-link" href="#">Manage Requests</a>
                   {% endif %}
-                    <a class="nav-item nav-link" href="{{ url_for('mechanics.account') }}">Account</a>
-                    <a class="nav-item nav-link" href="{{ url_for('mechanics.logout') }}">Logout</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
                 {% else %}
-                  <a class="nav-item nav-link" href="{{ url_for('mechanics.login') }}">Login</a>
-                  <a class="nav-item nav-link" href="{{ url_for('mechanics.create_mechanic') }}">Create Mechanic</a>
+                  <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
                 {% endif %}
               </div>
             </div>

@@ -9,7 +9,7 @@
       <div class="card">
         <div class="card-body">
           <div class="float-right">
-            <a href="{{ url_for('view_inventories') }}"
+            <a href="{{ url_for('inventory.view_inventories') }}"
               ><i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
@@ -22,7 +22,7 @@
       <div class="card">
         <div class="card-body">
           <div class="float-right">
-            <a href="{{ url_for('low_inventory') }}"
+            <a href="{{ url_for('inventory.low_inventory') }}"
               ><i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
@@ -35,7 +35,7 @@
       <div class="card">
         <div class="card-body">
           <div class="float-right">
-            <a href="{{ url_for('finished_inventory') }}"
+            <a href="{{ url_for('inventory.finished_inventory') }}"
               ><i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
@@ -48,7 +48,7 @@
       <div class="card">
         <div class="card-body">
           <div class="float-right">
-            <a href="{{ url_for('suppliers') }}"
+            <a href="{{ url_for('supplier.suppliers') }}"
               ><i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
@@ -63,7 +63,7 @@
       <div class="card">
         <div class="card-body">
           <div class="float-right">
-            <a href="{{ url_for('mechanics') }}"
+            <a href="{{ url_for('users.mechanics') }}"
               ><i class="bi bi-arrow-up-right"></i
             ></a>
           </div>
@@ -75,7 +75,7 @@
     <div class="col-md-3 mt-4">
       <div class="card">
         <div class="card-body ml-5">
-          <a class="btn btn-primary mt-2" href="{{ url_for('submit_request') }}"
+          <a class="btn btn-primary mt-2" href="{{ url_for('users.submit_request') }}"
             >Request Inventory</a
           >
         </div>
@@ -84,7 +84,7 @@
     <div class="col-md-3 mt-4">
       <div class="card">
         <div class="card-body ml-5">
-          <a class="btn btn-primary mt-2" href="{{ url_for('view_requests') }}"
+          <a class="btn btn-primary mt-2" href="{{ url_for('users.view_requests') }}"
             >Request Status</a
           >
         </div>
