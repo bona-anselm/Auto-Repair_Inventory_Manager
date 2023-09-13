@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     {% if title %}
-        <title>AutoStock | {{ title }}</title>
+        <title>AutoSotck | {{ title }}</title>
     {% else %}
         <title>AutoStock</title>
     {% endif %}
@@ -29,12 +29,17 @@
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Owner Dashboard<a></a>
-                <a class="nav-item nav-link" href="#">Manage Requests</a>
-                <a class="nav-item nav-link" href="#">Account</a>
-                <a class="nav-item nav-link" href="#">Logout</a>
-                <a class="nav-item nav-link" href="{{ url_for('mechanics.login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('mechanics.create_mechanic') }}">Create Mechanic</a>
+                {% if current_user.is_authenticated %}
+                  {% if current_user.is_superuser %}
+                    <a class="nav-item nav-link" href="{{ url_for('mechanics.owner_dashboard') }}">Owner Dashboard<a></a>
+                    <a class="nav-item nav-link" href="#">Manage Requests</a>
+                  {% endif %}
+                    <a class="nav-item nav-link" href="{{ url_for('mechanics.account') }}">Account</a>
+                    <a class="nav-item nav-link" href="{{ url_for('mechanics.logout') }}">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="{{ url_for('mechanics.login') }}">Login</a>
+                  <a class="nav-item nav-link" href="{{ url_for('mechanics.create_mechanic') }}">Create Mechanic</a>
+                {% endif %}
               </div>
             </div>
           </div>

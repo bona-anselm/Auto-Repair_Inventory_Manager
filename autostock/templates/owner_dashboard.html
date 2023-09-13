@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% block content %}
+  
+  <!-- Container for Dashboard Content -->
+  <div class="container mt-4">
+    <h1 class="mb-4">{{ current_user.username }} - Dashboard</h1>
+    <div class="row dashboard">
+      <!-- Dashboard Metrics -->
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right">
+              <a href="{{ url_for('inventory.view_inventories') }}"
+                ><i class="bi bi-arrow-up-right"></i
+              ></a>
+            </div>
+            <h5 class="card-title">Total Products</h5>
+            <p class="card-text" style="color:green">{{ total_products }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right">
+              <a href="{{ url_for('inventory.low_inventory') }}"
+                ><i class="bi bi-arrow-up-right"></i
+              ></a>
+            </div>
+            <h5 class="card-title" style="color:goldenrod">Low Stock</h5>
+            <p class="card-text">{{ total_low_stock }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right">
+              <a href="{{ url_for('inventory.finished_inventory') }}"
+                ><i class="bi bi-arrow-up-right"></i
+              ></a>
+            </div>
+            <h5 class="card-title" style="color:red">Out of Stock</h5>
+            <p class="card-text" style="color:red">{{ total_stock_out }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right">
+              <a href="#"
+                ><i class="bi bi-arrow-up-right"></i
+              ></a>
+            </div>
+            <h5 class="card-title" style="color: rgb(124, 9, 47)">Suppliers</h5>
+            <p class="card-text" style="color: rgb(124, 9, 47)">{{ total_suppliers }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="float-right">
+              <a href="#"
+                ><i class="bi bi-arrow-up-right"></i
+              ></a>
+            </div>
+            <h5 class="card-title" style="color:blueviolet">Mechanics</h5>
+            <p class="card-text">{{ mechanics }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          <div class="card-body ml-5">
+            <a class="btn btn-primary" href="{{ url_for('inventory.add_inventory') }}"
+              >Add Inventory</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          <div class="card-body ml-5">
+            <a class="btn btn-primary" href="{{ url_for('mechanics.create_mechanic') }}"
+              >Add Mechanics</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt-4">
+        <div class="card">
+          <div class="card-body ml-5">
+            <a class="btn btn-primary" href="#"
+              >Add Suppliers</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chart">
+      <div class="moving-text"><b>INVENTORY CHART</b></div>
+    </div>
+    <!-- Chartjs library integration -->
+    <div class="container">
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Inventory Usage by Category</h5>
+              <div>
+                <canvas id="myChart" height="130"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Supplier Trends</h5>
+            <div>
+              <div>
+                <canvas id="supplyChart" height="130"></canvas>
+            </dv>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+{% endblock content %}

@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% block content %}
+
+<!-- Container for Dashboard Content -->
+<div class="container mt-4">
+  <h1 class="mb-4">{{ current_user.username }} - Dashboard</h1>
+  <div class="row dashboard">
+    <!-- Dashboard Metrics -->
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="float-right">
+            <a href="{{ url_for('view_inventories') }}"
+              ><i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+          <h5 class="card-title">Total Products</h5>
+          <p class="card-text" style="color: green">{{ total_products }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="float-right">
+            <a href="{{ url_for('low_inventory') }}"
+              ><i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+          <h5 class="card-title" style="color: goldenrod">Low Stock</h5>
+          <p class="card-text">{{ total_low_stock }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="float-right">
+            <a href="{{ url_for('finished_inventory') }}"
+              ><i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+          <h5 class="card-title" style="color: red">Out of Stock</h5>
+          <p class="card-text" style="color: red">{{ total_stock_out }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <div class="float-right">
+            <a href="{{ url_for('suppliers') }}"
+              ><i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+          <h5 class="card-title" style="color: rgb(124, 9, 47)">Suppliers</h5>
+          <p class="card-text" style="color: rgb(124, 9, 47)">
+            {{ total_suppliers }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="float-right">
+            <a href="{{ url_for('mechanics') }}"
+              ><i class="bi bi-arrow-up-right"></i
+            ></a>
+          </div>
+          <h5 class="card-title" style="color: blueviolet">Mechanics</h5>
+          <p class="card-text">{{ mechanics }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-4">
+      <div class="card">
+        <div class="card-body ml-5">
+          <a class="btn btn-primary mt-2" href="{{ url_for('submit_request') }}"
+            >Request Inventory</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mt-4">
+      <div class="card">
+        <div class="card-body ml-5">
+          <a class="btn btn-primary mt-2" href="{{ url_for('view_requests') }}"
+            >Request Status</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
