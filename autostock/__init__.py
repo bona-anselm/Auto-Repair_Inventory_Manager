@@ -5,12 +5,12 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'mechanics.login'
 login_manager.login_message_category = 'info'
+
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -23,8 +23,10 @@ def create_app(config_class=Config):
     from autostock.main.routes import main
     from autostock.mechanics.routes import mechanics
     from autostock.inventory.routes import inventory
+    from autostock.suppliers.routes import supplier
     app.register_blueprint(main)
     app.register_blueprint(mechanics)
     app.register_blueprint(inventory)
+    app.register_blueprint(supplier)
 
     return app

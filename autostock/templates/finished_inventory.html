@@ -3,7 +3,7 @@
 <div class="container mt-4 background">
     <div class="col-md-2 float-right">
       <div class="card p-2">
-        <a class="btn btn-sm btn-secondary" href="{{ url_for('add_inventory') }}"
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('inventory.add_inventory') }}"
           ><i class="bi bi-arrow-clockwise">Reorder Items</i></a
         >
       </div>
@@ -40,7 +40,7 @@
               <ul class="dropdown-menu">
                 <li>
                   <a
-                    href="{{ url_for('update_inventory', inventory_id=inventory.id) }}"
+                    href="{{ url_for('inventory.update_inventory', inventory_id=inventory.id) }}"
                   >
                     <button class="btn btn-secondary btn-sm">Update</button>
                   </a>
@@ -87,7 +87,7 @@
                       Close
                     </button>
                     <form
-                      action="{{ url_for('delete_inventory', inventory_id=inventory.id) }}"
+                      action="{{ url_for('inventory.delete_inventory', inventory_id=inventory.id) }}"
                       method="POST"
                     >
                       <input

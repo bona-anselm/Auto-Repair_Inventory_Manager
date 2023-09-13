@@ -21,7 +21,7 @@ def view_inventories():
 def add_inventory():
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanic_dashboard'))
+        return redirect(url_for('mechanics.mechanic_dashboard'))
     form = AddInventory()
 
     # Query the database and generate choices within the view function
@@ -40,7 +40,7 @@ def add_inventory():
                 db.session.add(inventory)
                 db.session.commit()
                 flash('The inventory items have been inserted!', 'success')
-                return redirect(url_for('owner_dashboard'))
+                return redirect(url_for('mechanics.owner_dashboard'))
             except Exception as e:
                 db.session.rollback()
                 flash('An error occurred while adding inventory items.', 'error')
@@ -61,6 +61,48 @@ def low_inventory():
 def finished_inventory():
     finished_inventory = InventoryItem.query.filter(InventoryItem.quantity == 0)
     return render_template('finished_inventory.html', title='Finished Inventory', finished_inventory=finished_inventory)
+
+
+
+@inventory.route('/inventory/<int:inventory_id>/delete', methods=['POST'])
+@login_required
+def delete_inventory(inventory_id):
+    if not current_user.is_authenticated or not current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('mechanics.mechanic_dashboard'))
+    inventory = InventoryItem.query.get_or_404(inventory_id)
+    db.session.delete(inventory)
+    db.session.commit()
+    flash('Inventory item deleted successfully!', 'success')
+    return redirect(url_for('inventory.view_inventories'))
+
+
+
+@inventory.route('/inventory/<int:inventory_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_inventory(inventory_id):
+    if not current_user.is_authenticated or not current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('mechanics.mechanic_dashboard'))
+    inventory = InventoryItem.query.get_or_404(inventory_id)
+    form = AddInventory(obj=inventory)
+
+    # Query the database for suppliers and populate the dropdown choices
+    suppliers = Supplier.query.all()
+    form.supplier.choices = [(str(s.id), s.name) for s in suppliers]
+
+    if form.validate_on_submit():
+        inventory.name = form.name.data
+        inventory.quantity = form.quantity.data
+        inventory.category = form.category.data
+        inventory.supplier = Supplier.query.get(int(form.supplier.data))  # Retrieve the selected supplier
+        # Update any other fields as needed
+        db.session.commit()
+        flash('Inventory item updated successfully!', 'success')
+        return redirect(url_for('inventory.view_inventories'))
+
+    return render_template('add_inventory.html', title='Update Inventory', form=form, inventory=inventory)
+
 
 
 
