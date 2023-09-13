@@ -1,6 +1,51 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<section id="about" class="section">
+  <h1>Welcome to AutoStock</h1>
+  <h4>The auto-repair inventory management app</h4>
+  <div class="cont">
+    <header class="section-header">
+      <h2 class="section-title">About AutoStock</h2>
+    </header>
+    <div class="section-body">
+      <div class="aboutus">
+        <img
+          src="{{ url_for('static', filename='images/about_us.jpg') }}"
+          alt="about"
+          width="260"
+          height="260"
+        />
+        <p>
+          Welcome to AutoStock, the ultimate solution for efficient auto parts
+          and tools management. At AutoStock, we're dedicated to streamlining
+          the inventory management process for your auto repair shop, making it
+          easier than ever to keep track of stock levels, fulfill staff
+          requests, and ensure that you never run out of essential parts.
+        </p>
+        <h3>Our Mission</h3>
+        <p>
+          At AutoStock, our mission is to empower auto repair businesses with
+          innovative tools that simplify inventory management. We understand the
+          challenges of maintaining an organized and well-stocked workshop, and
+          our app is designed to address these challenges head-on.
+        </p>
+      </div>
+    </div>
+    <!-- why Autostock -->
+    <section>
+      <div class="cont">
+        <header class="section-header">
+          <h2 class="section-title">Why Autostock?</h2>
+        </header>
+        <div class="section-body"></div>
+      </div>
+    </section>
+  </div>
+</section>
 
 {% block content %}
-    <h1>Welcome to AutoInvento</h1>
-    <h4>The auto-repair inventory management app</h4>
+<h1>Welcome to AutoInvento</h1>
+<h4>The auto-repair inventory management app</h4>
+<small
+  >Your Trusted Partner for Product Tracking and Inventory Management
+</small>
 {% endblock content %}
