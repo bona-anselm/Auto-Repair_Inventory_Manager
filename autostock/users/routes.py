@@ -260,9 +260,12 @@ def manage_requests():
     if not current_user.is_superuser:
         flash('You do not have permission to access this page.', 'danger')
         return redirect(url_for('users.mechanic_dashboard'))
-
+    
     # Fetch pending requests
     pending_requests = InventoryRequest.query.filter_by(status='pending').all()
+    if not pending_requests:
+        flash('There are currently no pending requests!', 'info')
+    
     form = OwnerActionForm()
 
     if request.method == 'POST':
@@ -271,7 +274,7 @@ def manage_requests():
 
         # Find the request by ID
         request_item = InventoryRequest.query.get(request_id)
-        
+
         if request_item:
             if action == 'approve':
                 # Update the request status to approved
