@@ -157,7 +157,7 @@ def update_mechanic(mechanic_id):
         form.username.data = mechanic.username
         form.email.data = mechanic.email
     image_file = url_for('static', filename='images/' + mechanic.image_file)
-    return render_template('udpate_mechanic.html', title=f"Update {mechanic.username}", mechanic=mechanic, image_file=image_file, form=form)
+    return render_template('update_mechanic.html', title=f"Update {mechanic.username}", mechanic=mechanic, image_file=image_file, form=form)
 
 
 
