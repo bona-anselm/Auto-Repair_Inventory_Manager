@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
-from autostock.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
-from autostock.users.utils import save_picture
-from autostock import db, bcrypt
+from autoinvento.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
+from autoinvento.users.utils import save_picture
+from autoinvento import db, bcrypt
 #from flask_mail import Message
 from sqlalchemy import func
-from autostock.models import Mechanics, Supplier, InventoryItem, InventoryRequest
+from autoinvento.models import Mechanics, Supplier, InventoryItem, InventoryRequest
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -13,9 +13,9 @@ users = Blueprint('users', __name__)
 
 @users.route('/create_mechanic', methods=['GET', 'POST'])
 def create_mechanic():
-    #if not current_user.is_authenticated or not current_user.is_superuser:
-        #flash('You are not authorized to access this page.', 'danger')
-        #return redirect(url_for('users.mechanic_dashboard'))
+    if not current_user.is_authenticated or not current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('users.mechanic_dashboard'))
     form = CreateMechanicForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')

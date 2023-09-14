@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, IntegerField
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from autostock.models import Mechanics
+from autoinvento.models import Mechanics
 from flask_login import current_user
 
 

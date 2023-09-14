@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, redirect, url_for, render_template, request
 from flask_login import current_user, login_required
-from autostock.suppliers.forms import AddSupplier
-from autostock.models import Supplier, InventoryItem
-from autostock import db
+from autoinvento.suppliers.forms import AddSupplier
+from autoinvento.models import Supplier, InventoryItem
+from autoinvento import db
 
 
 supplier = Blueprint('supplier', __name__)
