@@ -108,6 +108,9 @@ def owner_dashboard():
 @users.route('/mechanic/dashboard', methods=['GET', 'POST'])
 @login_required
 def mechanic_dashboard():
+    if not current_user.is_authenticated or current_user.is_superuser:
+        flash('You are not authorized to access this page.', 'danger')
+        return redirect(url_for('users.owner_dashboard'))
     total_suppliers = Supplier.query.count()
     mechanics = Mechanics.query.filter_by(is_superuser=False).count()
     total_products = InventoryItem.query.count()
