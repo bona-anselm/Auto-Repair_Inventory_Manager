@@ -127,10 +127,6 @@ a:hover {
   margin-right: auto;
 }
 
-.aboutus {
-  display: flex;
-}
-
 .article-title {
   color: var(--color-primary);
 }
