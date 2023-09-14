@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+    <h3>Make Request</h3>
+    <div class="container mt-4">
+        <form method="POST" action="/submit_request">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="item_id">Select Item:</label>
+                {{ form.item_id(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                {{ form.quantity_requested(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+        </form>
+    </div>
+{% endblock content %}
+
+
+

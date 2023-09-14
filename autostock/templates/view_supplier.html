@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="invoice-container">
+        <div class="invoice-info">
+            <div class="invoice-details">
+                <h3>Supplier Details</h3>
+                <div class="billing-info mt-4">
+                    <div>
+                        <p><strong>Name:</strong> {{ supplier.name }}</p>
+                        <p><strong>Email:</strong> {{ supplier.email }}</p>
+                    </div>
+                    <div>
+                        <p><strong>Phone:</strong> {{ supplier.phone_number }}</p>
+                        <p><strong>Address:</strong> {{ supplier.contact }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="invoice-table">
+            <h4>Supplier Products</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in supplier_products %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.category }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="invoice-total">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Delete Supplier
+            </button>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Supplier?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-sm mb-4" data-bs-dismiss="modal">Close</button>
+            <form action="{{ url_for('supplier.delete_supplier', supplier_id=supplier.id) }}" method="POST">
+                <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock content %}
+
+   

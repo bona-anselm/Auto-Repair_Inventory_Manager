@@ -1,21 +1,24 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+
 {% block content %}
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Create Mechanic</legend>
+                <legend class="border-bottom mb-4">{{ legend }}</legend>
                 <div class="form-group">
-                    {{ form.mechanic.label(class="form-control-label") }}
-                    {% if form.mechanic.errors %}
-                        {{ form.mechanic(class="form-control form-control-lg is-invalid") }}
+                    {{ form.name.label(class="form-control-label") }}
+
+                    {% if form.name.errors %}
+                        {{ form.name(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.mechanic.errors %}
+                            {% for error in form.name.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.mechanic(class="form-control form-control-lg") }}
+                        {{ form.name(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
@@ -32,34 +35,30 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    {{ form.contact.label(class="form-control-label") }}
+                    {% if form.contact.errors %}
+                        {{ form.contact(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
+                            {% for error in form.contact.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
+                        {{ form.contact(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.confirm_password.label(class="form-control-label") }}
-                    {% if form.confirm_password.errors %}
-                        {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
+                    {{ form.phone_number.label(class="form-control-label") }}
+                    {% if form.phone_number.errors %}
+                        {{ form.phone_number(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.confirm_password.errors %}
+                            {% for error in form.phone_number.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.confirm_password(class="form-control form-control-lg") }}
+                        {{ form.phone_number(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-                <div class="form-check">
-                    {{ form.is_superuser(class="form-check-input") }}
-                    {{ form.is_superuser.label(class="form-check-label ml-2") }}
                 </div>
             </fieldset>
             <div class="form-group">
@@ -67,5 +66,4 @@
             </div>
         </form>
     </div>
-    
 {% endblock content %}

@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     {% if title %}
-        <title>AutoStock | {{ title }}</title>
+        <title>AutoSotck | {{ title }}</title>
     {% else %}
         <title>AutoStock</title>
     {% endif %}
@@ -18,23 +18,29 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
           <div class="container">
-            <a class="navbar-brand mr-4" href="/">AutoStock</a>
+            <a class="navbar-brand mr-4" href="{{ url_for('main.index') }}">AutoStock</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarToggle">
               <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{{ url_for('main.index') }}">Home</a>
-                <a class="nav-item nav-link" href="#">Mechanic Dashboard</a>
+                {% if current_user.is_authenticated %}
+                  <a class="nav-item nav-link" href="{{ url_for('users.mechanic_dashboard') }}">Mechanic Dashboard</a>
+                {% endif %}
               </div>
               <!-- Navbar Right Side -->
               <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Owner Dashboard<a></a>
-                <a class="nav-item nav-link" href="#">Manage Requests</a>
-                <a class="nav-item nav-link" href="#">Account</a>
-                <a class="nav-item nav-link" href="#">Logout</a>
-                <a class="nav-item nav-link" href="{{ url_for('mechanics.login') }}">Login</a>
-                <a class="nav-item nav-link" href="{{ url_for('mechanics.create_mechanic') }}">Create Mechanic</a>
+                {% if current_user.is_authenticated %}
+                  {% if current_user.is_superuser %}
+                    <a class="nav-item nav-link" href="{{ url_for('users.owner_dashboard') }}">Owner Dashboard<a></a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.manage_requests') }}">Manage Requests</a>
+                  {% endif %}
+                    <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
+                    <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                {% else %}
+                  <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
+                {% endif %}
               </div>
             </div>
           </div>

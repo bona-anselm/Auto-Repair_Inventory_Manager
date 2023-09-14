@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3 class="mt-4">My Requests</h3>
+    <div class="container mt-2 background mt-4">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+        <tr>
+            <td>{{ request.name }}</td>
+            <td>{{ request.quantity_requested }}</td>
+            <td>{{ request.status }}</td>
+            <td>{{ request.request_timestamp }} </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+{% endblock %}

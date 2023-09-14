@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block content %}
+<style>
+  body {
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.2),
+        rgba(34, 14, 91, 0.5)
+      ),
+      url("{{ url_for('static', filename='images/manage.png') }}");
+    background-size: cover;
+    background-position: center;
+  }
+</style>
+<div class="container mt-4">
+  <form method="POST" action="/manage_requests">
+    {{ form.hidden_tag() }}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Request ID</th>
+          <th scope="col">Requester</th>
+          <th scope="col">Item Name</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request_item in request_items %}
+        <tr>
+          <td>{{ request_item.id }}</td>
+          <td>{{ request_item.requester.username }}</td>
+          <td>{{ request_item.requested_item.name }}</td>
+          <td>{{ request_item.quantity_requested }}</td>
+          <td>
+            <input
+              type="hidden"
+              name="request_id"
+              value="{{ request_item.id }}"
+            />
+            <div class="btn-group" role="group">
+              <button
+                type="submit"
+                class="btn btn-success"
+                name="action"
+                value="approve"
+              >
+                Approve
+              </button>
+              <button
+                type="submit"
+                class="btn btn-danger"
+                name="action"
+                value="reject"
+              >
+                Reject
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </form>
+</div>
+{% endblock %}

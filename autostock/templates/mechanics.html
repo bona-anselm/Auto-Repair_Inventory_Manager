@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Manage Mechanics</h2>
+<div class="container background">
+    <div class="col-md-2 float-right">
+      <div class="card p-2">
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('users.create_mechanic') }}"
+          >Add Mechanic</a
+        >
+      </div>
+    </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Mechanic</th>
+        <th>Email</th>
+          <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-info dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="{{ url_for('users.update_mechanic', mechanic_id=user.id) }}">
+                    <button class="btn btn-secondary btn-sm">Update</button>
+                  </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal{{ user.id }}"
+                  >
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <!-- Modal -->
+            <div
+              class="modal fade"
+              id="deleteModal{{ user.id }}"
+              tabindex="-1"
+              aria-labelledby="deleteModalLabel{{ user.id }}"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3
+                      class="modal-title fs-5"
+                      id="deleteModalLabel{{ user.id }}"
+                    >
+                      Delete Mechanic?
+                    </h3>
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary btn-sm mb-4"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <form
+                      action="{{ url_for('users.delete_mechanic', mechanic_id=user.id) }}"
+                      method="POST"
+                    >
+                      <input
+                        type="submit"
+                        class="btn btn-danger btn-sm"
+                        value="Delete"
+                      />
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Pagination links (if you're using Flask's pagination) -->
+  {{ users.links }}
+</div>
+
+{% endblock content %}
