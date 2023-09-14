@@ -31,6 +31,12 @@
   --section-tagline-margin: 0;
   /* Button */
   --button-display: inline-block;
+  /* section */
+  --section-padding: 5rem 0;
+  --section-header-padding: 0 0 3rem;
+  --section-body-padding: 0 0 3rem;
+  --section-header-align: center;
+  --section-title-margin: 0;
 }
 
 html {
@@ -95,6 +101,34 @@ a:hover {
   border-radius: 3px;
   margin-bottom: 20px;
   width: 70%;
+}
+
+/* Adding padding to sections */
+.section {
+  padding: var(--section-padding);
+}
+
+.section-header {
+  text-align: var(--section-header-align);
+  padding: var(--section-header-padding);
+}
+
+.section-body {
+  padding: var(--section-body-padding);
+}
+
+.section-title {
+  margin: var(--section-title-margin);
+}
+
+.cont {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.aboutus {
+  display: flex;
 }
 
 .article-title {
