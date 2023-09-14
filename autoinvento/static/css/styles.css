@@ -32,7 +32,7 @@
   /* Button */
   --button-display: inline-block;
   /* section */
-  --section-padding: 5rem 0;
+  --section-padding: 4rem 0;
   --section-header-padding: 0 0 3rem;
   --section-body-padding: 0 0 3rem;
   --section-header-align: center;
@@ -119,6 +119,39 @@ a:hover {
 
 .section-title {
   margin: var(--section-title-margin);
+}
+
+.section-hero {
+  position: relative;
+  margin-top: -8.5rem;
+}
+
+.section-title.hero {
+  color: var(--color-white);
+}
+
+.hero-homepage {
+  background-color: var(--color-primary);
+  background-image: url("../images/homep.jpg");
+  background-position: 90% 10rem;
+  background-repeat: no-repeat;
+  background-size: 30rem auto;
+}
+
+.section-hero .section-body {
+  padding: 10rem 4rem;
+}
+
+.section-hero .section-title {
+  margin-bottom: 5rem;
+}
+
+.section-hero .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 5vh;
 }
 
 .cont {
@@ -231,6 +264,9 @@ tr:nth-child(even) {
 }
 
 .moving-text {
+  font-family: "Indie Flower", cursive;
+  font-style: italic;
+  color: #736f7d;
   position: relative; /* Make it a positioned element */
   white-space: nowrap; /* Prevent text from wrapping */
   animation: moveText 60s linear infinite; /* Apply the animation to the text */
