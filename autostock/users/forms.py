@@ -15,13 +15,13 @@ class CreateMechanicForm(FlaskForm):
     submit = SubmitField('Create Mechanic')
 
     def validate_username(self, username):
-        mechanic = Mechanics.query.filter_by(username=username.data).first()
-        if mechanic:
-            raise ValidationError('Mechanic Already Exists')
+        user = Mechanics.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Username Already Exists')
             
     def validate_email(self, email):
-        mechanic = Mechanics.query.filter_by(email=email.data).first()
-        if mechanic:
+        user = Mechanics.query.filter_by(email=email.data).first()
+        if user:
             raise ValidationError('Email Already Exists')
 
     

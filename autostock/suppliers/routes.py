@@ -14,7 +14,7 @@ def add_suppliers():
     form = AddSupplier()
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     if form.validate_on_submit():
         supplier = Supplier(name=form.name.data, email=form.email.data, contact=form.contact.data)
         db.session.add(supplier)
@@ -45,7 +45,7 @@ def view_supplier(supplier_id):
 def update_supplier(supplier_id):
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     
     supplier = Supplier.query.get_or_404(supplier_id)
     form = AddSupplier()
@@ -70,7 +70,7 @@ def update_supplier(supplier_id):
 def delete_supplier(supplier_id):
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     supplier = Supplier.query.get_or_404(supplier_id)
     db.session.delete(supplier)
     db.session.commit()

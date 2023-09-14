@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Length, Email
 
 
 class AddSupplier(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
+    name = StringField('Supplier Name', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     contact = StringField('Address', validators=[DataRequired(Length(min=2, max=120))])
     phone_number = StringField('Phone No')

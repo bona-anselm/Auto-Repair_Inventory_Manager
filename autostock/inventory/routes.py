@@ -21,7 +21,7 @@ def view_inventories():
 def add_inventory():
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     form = AddInventory()
 
     # Query the database and generate choices within the view function
@@ -40,7 +40,7 @@ def add_inventory():
                 db.session.add(inventory)
                 db.session.commit()
                 flash('The inventory items have been inserted!', 'success')
-                return redirect(url_for('mechanics.owner_dashboard'))
+                return redirect(url_for('users.owner_dashboard'))
             except Exception as e:
                 db.session.rollback()
                 flash('An error occurred while adding inventory items.', 'error')
@@ -68,7 +68,7 @@ def finished_inventory():
 def delete_inventory(inventory_id):
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     inventory = InventoryItem.query.get_or_404(inventory_id)
     db.session.delete(inventory)
     db.session.commit()
@@ -82,7 +82,7 @@ def delete_inventory(inventory_id):
 def update_inventory(inventory_id):
     if not current_user.is_authenticated or not current_user.is_superuser:
         flash('You are not authorized to access this page.', 'danger')
-        return redirect(url_for('mechanics.mechanic_dashboard'))
+        return redirect(url_for('users.mechanic_dashboard'))
     inventory = InventoryItem.query.get_or_404(inventory_id)
     form = AddInventory(obj=inventory)
 

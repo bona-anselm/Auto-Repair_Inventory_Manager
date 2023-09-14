@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
-from autostock.mechanics.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
-from autostock.mechanics.utils import save_picture
+from autostock.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
+from autostock.users.utils import save_picture
 from autostock import db, bcrypt
 #from flask_mail import Message
 from sqlalchemy import func
@@ -198,7 +198,7 @@ def submit_request():
             requests = InventoryRequest(
                 item_id=item_id,
                 quantity_requested=quantity_requested,
-                user_id=current_user.id,
+                mechanic_id=current_user.id,
                 status='pending'
             )
             db.session.add(requests)
@@ -245,7 +245,7 @@ def view_requests():
     # Fetch requests made by the current mechanic
     mechanic_requests = (
         InventoryRequest.query
-        .filter_by(user_id=current_user.id)
+        .filter_by(mechanic_id=current_user.id)
         .join(InventoryItem)  # Join the InventoryItem table
         .add_columns(InventoryItem.name, InventoryRequest.quantity_requested, InventoryRequest.status, InventoryRequest.request_timestamp)
         .all()

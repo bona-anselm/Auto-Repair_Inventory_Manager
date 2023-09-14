@@ -8,7 +8,7 @@ from flask_login import LoginManager
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
-login_manager.login_view = 'mechanics.login'
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
 
@@ -21,7 +21,7 @@ def create_app(config_class=Config):
     login_manager.init_app(app)
     
     from autostock.main.routes import main
-    from autostock.mechanics.routes import users
+    from autostock.users.routes import users
     from autostock.inventory.routes import inventory
     from autostock.suppliers.routes import supplier
     app.register_blueprint(main)
