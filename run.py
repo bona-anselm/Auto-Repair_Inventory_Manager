@@ -1,4 +1,4 @@
-from autostock import create_app, db
+from autoinvento import create_app, db
 
 
 app = create_app()

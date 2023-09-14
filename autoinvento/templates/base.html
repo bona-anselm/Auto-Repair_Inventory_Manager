@@ -9,16 +9,16 @@
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     {% if title %}
-        <title>AutoSotck | {{ title }}</title>
+        <title>AutoInvento | {{ title }}</title>
     {% else %}
-        <title>AutoStock</title>
+        <title>AutoInvento</title>
     {% endif %}
 </head>
 <body>
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
           <div class="container">
-            <a class="navbar-brand mr-4" href="{{ url_for('main.index') }}">AutoStock</a>
+            <a class="navbar-brand mr-4" href="{{ url_for('main.index') }}">AutoInvento</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -26,7 +26,9 @@
               <div class="navbar-nav mr-auto">
                 <a class="nav-item nav-link" href="{{ url_for('main.index') }}">Home</a>
                 {% if current_user.is_authenticated %}
-                  <a class="nav-item nav-link" href="{{ url_for('users.mechanic_dashboard') }}">Mechanic Dashboard</a>
+                  {% if not current_user.is_superuser %}
+                    <a class="nav-item nav-link" href="{{ url_for('users.mechanic_dashboard') }}">Mechanic Dashboard</a>
+                  {% endif %}
                 {% endif %}
               </div>
               <!-- Navbar Right Side -->
