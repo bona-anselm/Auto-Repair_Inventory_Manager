@@ -2,67 +2,80 @@
 <style>
   /* Custom CSS for centering content and extending the page */
   body {
+    background-color: rgba(34, 14, 91);
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.1),
+        rgba(34, 14, 91, 0.5)
+      ),
+      url("{{ url_for('static', filename='images/account.jpg') }}");
+    background-size: cover;
+    background-repeat: no-repeat;
   }
-  .container.sec {
-    width: 70%;
-    justify-content: center;
-    align-items: center;
+  .container_account {
+    min-height: 100vh;
+    margin: auto;
+    max-width: 100%;
+    width: 550px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    overflow-x: hidden; /* Hide horizontal overflow */
+  }
+  .content-section {
+    padding: 20px;
   }
 </style>
-<div class="content-section">
-  <div class="media">
-    <img class="rounded-circle account-img" src="{{ image_file }}" />
-    <div class="media-body">
-      <h2 class="account-heading">{{ current_user.username }}</h2>
-      <p class="text-secondary">{{ current_user.email }}</p>
+
+<div class="container_account">
+  <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{ image_file }}" />
+      <div class="media-body">
+        <h2 class="account-heading">{{ current_user.username }}</h2>
+        <p class="text-secondary">{{ current_user.email }}</p>
+      </div>
     </div>
+    <form method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Account Info</legend>
+        <div class="form-group">
+          {{ form.username.label(class="form-control-label") }}
+          <!-- Printing feedback messages incase of invalid input -->
+          {% if form.username.errors %} {{ form.username(class="form-control
+          form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.username(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.email.label(class="form-control-label") }}
+          <!-- Printing feedback messages incase of invalid input -->
+          {% if form.email.errors %} {{ form.email(class="form-control
+          form-control-lg is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.email(class="form-control form-control-lg") }} {%
+          endif %}
+        </div>
+        <div class="form-group">
+          {{ form.picture.label() }} {{ form.picture(class="form-control-file")
+          }} {% if form.picture.errors %} {% for error in form.picture.errors %}
+          <span class="text-danger">{{ error }}</span><br />
+          {% endfor %} {% endif %}
+        </div>
+      </fieldset>
+      <div class="form-group">
+        {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+    </form>
   </div>
-  <form method="POST" action="" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <fieldset class="form-group">
-      <legend class="border-bottom mb-4">Account Info</legend>
-      <div class="form-group">
-        {{ form.username.label(class="form-control-label") }}
-        <!-- Printing feedback messages incase of invalid input -->
-        {% if form.username.errors %} {{ form.username(class="form-control
-        form-control-lg is-invalid") }}
-        <div class="invalid-feedback">
-          {% for error in form.username.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% else %} {{ form.username(class="form-control form-control-lg") }} {%
-        endif %}
-      </div>
-      <div class="form-group">
-        {{ form.email.label(class="form-control-label") }}
-        <!-- Printing feedback messages incase of invalid input -->
-        {% if form.email.errors %} {{ form.email(class="form-control
-        form-control-lg is-invalid") }}
-        <div class="invalid-feedback">
-          {% for error in form.email.errors %}
-          <span>{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% else %} {{ form.email(class="form-control form-control-lg") }} {%
-        endif %}
-      </div>
-      <div class="form-group">
-        {{ form.picture.label() }} 
-        {{ form.picture(class="form-control-file") }}
-        {% if form.picture.errors %} 
-          {% for error in form.picture.errors %}
-            <span class="text-danger">{{ error }}</span><br />
-          {% endfor %} 
-        {% endif %}
-    </div>
-    </fieldset>
-    <div class="form-group">
-      {{ form.submit(class="btn btn-outline-info") }}
-    </div>
-  </form>
 </div>
 {% endblock content %}
