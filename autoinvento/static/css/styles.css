@@ -133,7 +133,7 @@ a:hover {
 .hero-homepage {
   background-color: var(--color-primary);
   background-image: url("../images/homep.jpg");
-  background-position: 90% 10rem;
+  background-position: 90% 10 rem;
   background-repeat: no-repeat;
   background-size: 30rem auto;
 }
