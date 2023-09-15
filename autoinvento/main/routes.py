@@ -9,7 +9,7 @@ main = Blueprint('main', __name__)
 def landing_page():
     if not current_user.is_authenticated:
         return redirect(url_for('users.login'))
-    return render_template('home.html')
+    return render_template('index.html')
 
 
 @main.route('/index')
