@@ -2,11 +2,7 @@
 <style>
   /* Custom CSS for centering content and extending the page */
   body {
-    background-image: linear-gradient(
-        rgba(34, 14, 91, 0.5),
-        rgba(34, 14, 91, 0.8)
-      ),
-      url("{{ url_for('static', filename='images/login.jpg') }}");
+    background-image: url("{{ url_for('static', filename='images/backg.jpg') }}");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -24,11 +20,26 @@
   }
 
   .content-section {
+    background-color: #f8f9fa;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 50px;
+    max-width: 400px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 5px 5px 5px #220e5b;
+    border-radius: 10px;
   }
 
+  .btn.btn-outline-info {
+    /* adding padding around the login button*/
+    background-image: none;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
   .btn.btn-outline-info:hover {
+    /* hover for longin button*/
     background: #220e5b;
   }
   .border-top.pt-3 .text-muted {
@@ -36,10 +47,30 @@
   }
   .text-muted.ml-2 a {
     color: #e80f0f;
+    font-size: medium;
   }
+
   .text-muted.ml-2:hover a {
     color: #220e5b;
   }
+
+  .border-bottom.mb-4 {
+    /* the Login heading */
+    padding-bottom: 5px;
+    font-size: x-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .form-group.login {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  /* alerting */
+.alert.alert-info {
+  width: 250px;
+  justify-content: center;
+  margin: auto;
+}
 </style>
 
 <div class="container-login">
@@ -77,7 +108,7 @@
           form.remember.label(class="form-check-label") }}
         </div>
       </fieldset>
-      <div class="form-group">
+      <div class="form-group login">
         {{ form.submit(class="btn btn-outline-info") }}
       </div>
       <small class="text-muted ml-2">
