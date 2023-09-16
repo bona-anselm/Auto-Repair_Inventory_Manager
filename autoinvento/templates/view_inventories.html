@@ -10,7 +10,7 @@
   }
 </style>
 <div class="inventory">
-  <h3 class="mt-4">Inventory Items</h3>
+  <h3 class="mt-4" style="color:white">Inventory Items</h3>
   <div class="container mt-2 background mt-4">
     <div class="col-md-2 float-left">
       <div class="card p-2">
@@ -41,8 +41,15 @@
         </tr>
       </thead>
       <tbody>
-        {% for inventory in inventories %}
-        <tr>
+        {% for inventory in inventories %} 
+          {% if inventory.quantity > 0 and inventory.quantity <= 10 %}
+          <tr style="color:orange">
+          {% elif inventory.quantity == 0 %}
+          <tr style="color:red">
+          {% else %}
+          <tr style="color:#220e5b">
+          {% endif %}
+
           <td>{{ inventory.id }}</td>
           <td>{{ inventory.name }}</td>
           <td>{{ inventory.quantity }}</td>
