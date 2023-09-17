@@ -1,21 +1,36 @@
-{% extends "base.html" %}
-{% block content %}
-    <h3>Make Request</h3>
-    <div class="container mt-4">
-        <form method="POST" action="/submit_request">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <label for="item_id">Select Item:</label>
-                {{ form.item_id(class="form-control") }}
-            </div>
-            <div class="form-group">
-                <label for="quantity">Quantity:</label>
-                {{ form.quantity_requested(class="form-control") }}
-            </div>
-            <button type="submit" class="btn btn-primary">Submit Request</button>
-        </form>
+{% extends "base.html" %} {% block content %}
+<style>
+  /* Custom CSS for centering content and extending the page */
+  body {
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.2),
+        rgba(34, 14, 91, 0.3)
+      ),
+      url("{{ url_for('static', filename='images/request-tools.jpg') }}");
+    background-size: cover;
+    background-position: center;
+  }
+  .container.mt-4 {
+    font-size: medium;
+  }
+
+  .form-control {
+    font-size: medium;
+  }
+</style>
+<h3 style="color: aliceblue">Make Request</h3>
+<div class="container mt-4">
+  <form method="POST" action="/submit_request">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      <label for="item_id">Select Item:</label>
+      {{ form.item_id(class="form-control") }}
     </div>
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      {{ form.quantity_requested(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Request</button>
+  </form>
+</div>
 {% endblock content %}
-
-
-
