@@ -63,7 +63,9 @@ h6 {
   font-family: var(--font-family-title);
   font-weight: var(--font-weight-bold);
 }
-
+h6 {
+  font-size: var(--font-size-medium);
+}
 a:hover {
   transform: scale(1.2); /* Zoom in by 20% */
   color: white;
@@ -103,6 +105,21 @@ a:hover {
   width: 70%;
 }
 
+.row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.col-md-8.col-sm-12 {
+  padding: 5px;
+  font-size: var(--font-size-large);
+}
+
+.col-md-4.col-sm-12 {
+  padding: 5px;
+  font-size: var(--font-size-large);
+  justify-content: space-between;
+}
 /* Adding padding to sections */
 .section {
   padding: var(--section-padding);
@@ -128,11 +145,14 @@ a:hover {
 
 .section-title.hero {
   color: var(--color-white);
+  font-size: var(--font-size-xx-large);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  justify-content: center;
+  margin: auto;
 }
 
 .hero-homepage {
   background-color: var(--color-primary);
-  /* background-image: url("../images/homep.jpg"); */
   background-position: 90% 10rem;
   background-repeat: no-repeat;
   background-size: 30rem auto;
@@ -143,7 +163,7 @@ a:hover {
 }
 
 .section-hero .section-title {
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 }
 
 .section-hero .section-inner {
@@ -152,12 +172,6 @@ a:hover {
   align-items: flex-start;
   justify-content: center;
   min-height: 5vh;
-}
-
-.cont {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .article-title {
