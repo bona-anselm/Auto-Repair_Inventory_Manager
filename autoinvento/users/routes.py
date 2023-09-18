@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify, current_app
 from autoinvento.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm, RequestResetForm, ResetPasswordForm
 from autoinvento.users.utils import save_picture, send_reset_email
-from autoinvento import db, bcrypt
-#from flask_mail import Message
+from autoinvento import db, bcrypt, mail
+from flask_mail import Message
 from sqlalchemy import func
 from autoinvento.models import Mechanics, Supplier, InventoryItem, InventoryRequest
 from flask_login import login_user, current_user, logout_user, login_required
@@ -209,9 +209,9 @@ def submit_request():
             
             # Notify the owner via email
             owner_email = 'muchiskino@gmail.com' 
-            #message = Message('New Request', sender=current_app.config['MAIL_DEFAULT_SENDER'], recipients=[owner_email])
-            #message.body = f'A new request has been submitted by {current_user.username}. Please review it.'
-            #mail.send(message)
+            message = Message('New Request', sender=current_app.config['MAIL_DEFAULT_SENDER'], recipients=[owner_email])
+            message.body = f'A new request has been submitted by {current_user.username}. Please review it.'
+            mail.send(message)
 
             flash('Request submitted successfully!', 'success')
             return redirect(url_for('users.submit_request'))
