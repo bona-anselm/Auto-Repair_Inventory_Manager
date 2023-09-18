@@ -10,7 +10,7 @@
   }
 </style>
 <div class="inventory">
-  <h3 class="mt-4" style="color:white">Inventory Items</h3>
+  <h3 class="mt-4" style="color: white">Inventory Items</h3>
   <div class="container mt-2 background mt-4">
     <div class="col-md-2 float-left">
       <div class="card p-2">
@@ -30,123 +30,133 @@
         >
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>S/N</th>
-          <th>Name</th>
-          <th>Quantity</th>
-          <th>Category</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for inventory in inventories %} 
-          {% if inventory.quantity > 0 and inventory.quantity <= 10 %}
-          <tr style="color:orange">
-          {% elif inventory.quantity == 0 %}
-          <tr style="color:red">
-          {% else %}
-          <tr style="color:#220e5b">
-          {% endif %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>S/N</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for inventory in inventories %} {% if inventory.quantity > 0 and
+          inventory.quantity <= 10 %}
+          <tr style="color: orange">
+            {% elif inventory.quantity == 0 %}
+          </tr>
 
-          <td>{{ inventory.id }}</td>
-          <td>{{ inventory.name }}</td>
-          <td>{{ inventory.quantity }}</td>
-          <td>{{ inventory.category }}</td>
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn btn-info dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Actions
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a
-                    href="{{ url_for('inventory.update_inventory', inventory_id=inventory.id) }}"
-                  >
-                    <button class="btn btn-secondary btn-sm">Update</button>
-                  </a>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal{{ inventory.id }}"
-                  >
-                    Delete
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <!-- Modal -->
-            <div
-              class="modal fade"
-              id="deleteModal{{ inventory.id }}"
-              tabindex="-1"
-              aria-labelledby="deleteModalLabel{{ inventory.id }}"
-              aria-hidden="true"
-            >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3
-                      class="modal-title fs-5"
-                      id="deleteModalLabel{{ inventory.id }}"
+          <tr style="color: red">
+            {% else %}
+          </tr>
+
+          <tr style="color: #220e5b">
+            {% endif %}
+
+            <td>{{ inventory.id }}</td>
+            <td>{{ inventory.name }}</td>
+            <td>{{ inventory.quantity }}</td>
+            <td>{{ inventory.category }}</td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-info dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Actions
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      href="{{ url_for('inventory.update_inventory', inventory_id=inventory.id) }}"
                     >
-                      Delete Inventory Item
-                    </h3>
+                      <button class="btn btn-secondary btn-sm">Update</button>
+                    </a>
+                  </li>
+                  <li>
                     <button
                       type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary btn-sm mb-4"
-                      data-bs-dismiss="modal"
+                      class="btn btn-danger btn-sm"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal{{ inventory.id }}"
                     >
-                      Close
+                      Delete
                     </button>
-                    <form
-                      action="{{ url_for('inventory.delete_inventory', inventory_id=inventory.id) }}"
-                      method="POST"
-                    >
-                      <input
-                        type="submit"
-                        class="btn btn-danger btn-sm"
-                        value="Delete"
-                      />
-                    </form>
+                  </li>
+                </ul>
+              </div>
+              <!-- Modal -->
+              <div
+                class="modal fade"
+                id="deleteModal{{ inventory.id }}"
+                tabindex="-1"
+                aria-labelledby="deleteModalLabel{{ inventory.id }}"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3
+                        class="modal-title fs-5"
+                        id="deleteModalLabel{{ inventory.id }}"
+                      >
+                        Delete Inventory Item
+                      </h3>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary btn-sm mb-4"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <form
+                        action="{{ url_for('inventory.delete_inventory', inventory_id=inventory.id) }}"
+                        method="POST"
+                      >
+                        <input
+                          type="submit"
+                          class="btn btn-danger btn-sm"
+                          value="Delete"
+                        />
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
     <!-- Pagination -->
-    {% for page_num in inventories.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-        {% if page_num %}
-            {% if inventories.page == page_num %}
-                <a class="btn btn-info mb-4" href="{{ url_for('inventory.view_inventories', page=page_num) }}">{{ page_num }}</a>
-            {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for('inventory.view_inventories', page=page_num) }}">{{ page_num }}</a>
-            {% endif %} 
-        {% else %} 
-            . . .
-        {% endif %}
-    {% endfor %}
+    {% for page_num in inventories.iter_pages(left_edge=1, right_edge=1,
+    left_current=1, right_current=2) %} {% if page_num %} {% if inventories.page
+    == page_num %}
+    <a
+      class="btn btn-info mb-4"
+      href="{{ url_for('inventory.view_inventories', page=page_num) }}"
+      >{{ page_num }}</a
+    >
+    {% else %}
+    <a
+      class="btn btn-outline-info mb-4"
+      href="{{ url_for('inventory.view_inventories', page=page_num) }}"
+      >{{ page_num }}</a
+    >
+    {% endif %} {% else %} . . . {% endif %} {% endfor %}
     <!-- Pagination End-->
   </div>
   {% endblock content %}
