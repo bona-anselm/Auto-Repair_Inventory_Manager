@@ -327,12 +327,29 @@ tr:nth-child(even) {
   color: var(--color-primary);
 }
 
+.btn-info {
+  background-color: var(--color-primary);
+}
+
 /* alerting */
 .alert.alert-info {
   width: 300px;
   justify-content: center;
   margin: auto;
 }
+
+.alert.alert-danger {
+  width: 450px;
+  justify-content: center;
+  margin: auto;
+}
+
+.alert.alert-success {
+  width: 400px;
+  justify-content: center;
+  margin: auto;
+}
+
 /* adding space btw the charts*/
 .col-md-6 {
   padding: 10px;
