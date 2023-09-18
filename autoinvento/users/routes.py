@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
-from autoinvento.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm
-from autoinvento.users.utils import save_picture
-from autoinvento import db, bcrypt
-#from flask_mail import Message
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify, current_app
+from autoinvento.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm, RequestResetForm, ResetPasswordForm
+from autoinvento.users.utils import save_picture, send_reset_email
+from autoinvento import db, bcrypt, mail
+from flask_mail import Message
 from sqlalchemy import func
 from autoinvento.models import Mechanics, Supplier, InventoryItem, InventoryRequest
 from flask_login import login_user, current_user, logout_user, login_required
@@ -209,9 +209,9 @@ def submit_request():
             
             # Notify the owner via email
             owner_email = 'muchiskino@gmail.com' 
-            #message = Message('New Request', sender=current_app.config['MAIL_DEFAULT_SENDER'], recipients=[owner_email])
-            #message.body = f'A new request has been submitted by {current_user.username}. Please review it.'
-            #mail.send(message)
+            message = Message('New Request', sender=current_app.config['MAIL_DEFAULT_SENDER'], recipients=[owner_email])
+            message.body = f'A new request has been submitted by {current_user.username}. Please review it.'
+            mail.send(message)
 
             flash('Request submitted successfully!', 'success')
             return redirect(url_for('users.submit_request'))
@@ -308,3 +308,32 @@ def manage_requests():
 
     return render_template('manage_requests.html', title='Manage Requests', form=form, request_items=pending_requests)
 
+@users.route('/reset_password', methods=['Get', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = Mechanics.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('An email has been sent with instructions to reset your email', 'info')
+        return redirect(url_for('users.login'))
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+
+@users.route('/reset_password/<token>', methods=['Get', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    user = Mechanics.verify_reset_token(token)
+    if user is None:
+        flash('That is an invalid or expired token', 'warning')
+        return redirect(url_for('users.reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit() 
+        flash(f'Your password is updated!', 'success')
+        return redirect(url_for('users.login'))
+    return render_template('reset_token.html', title='Reset Password', form=form)

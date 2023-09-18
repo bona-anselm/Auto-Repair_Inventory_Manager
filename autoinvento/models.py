@@ -1,6 +1,9 @@
 from autoinvento import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+from flask import current_app
+from datetime import datetime, timedelta
+import jwt
 
 
 
@@ -20,6 +23,41 @@ class Mechanics(db.Model, UserMixin):
     requests = db.relationship('InventoryRequest', back_populates='requester')
     usage_logs = db.relationship('UsageLog', back_populates='mechanic')
     notifications = db.relationship('Notification', back_populates='owner')
+
+    def get_reset_token(self):
+        payload = {
+            'sub': self.id,
+            'iss': current_app.config['SECRET_KEY'],
+            'exp': datetime.utcnow() + timedelta(minutes=30)
+        }
+        secret_key = current_app.config['SECRET_KEY']
+        token = jwt.encode(payload, secret_key, algorithm='HS256')
+        return token
+    
+    @staticmethod
+    def verify_reset_token(token):
+        try:
+            secret_key = current_app.config['SECRET_KEY']
+            payload = jwt.decode(token, secret_key, algorithms=['HS256'])
+           
+            # Verify the 'iss' (issuer) claim
+            if payload['iss'] != secret_key:
+                return None  # Token was not issued by the expected issuer
+
+            # Verify the 'exp' (expiration time) claim
+            if datetime.utcnow() > datetime.fromtimestamp(payload['exp']):
+                return None  # Token has expired
+            
+            # Retrieve the user based on user_id from the token's 'sub' (subject) claim
+            user_id = payload['sub']
+            user = Mechanics.query.get(user_id)
+            return user
+        except jwt.ExpiredSignatureError:
+            return None # Token has expired
+        except jwt.InvalidTokenError:
+            return None # Invalid token or signature
+        #return None
+
     
     def __repr__(self):
         return f"Mechanics('{self.username}', '{self.email}', '{self.image_file}')"

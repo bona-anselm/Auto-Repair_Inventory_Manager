@@ -6,14 +6,14 @@
         rgba(34, 14, 91, 0.2),
         rgba(34, 14, 91, 0.3)
       ),
-      url("{{ url_for('static', filename='images/store1.jpg') }}");
+      url("{{ url_for('static', filename='images/auto-image.jpg') }}");
     background-size: contain;
     background-position: center;
   }
 </style>
 <!-- Container for Dashboard Content -->
 <div class="container mt-4">
-  <h1 class="mb-4">{{ current_user.username }} - Dashboard</h1>
+  <h1 class="mb-4">Welcome {{ current_user.username }}</h1>
   <div class="row dashboard">
     <!-- Dashboard Metrics -->
     <div class="col-md-3">

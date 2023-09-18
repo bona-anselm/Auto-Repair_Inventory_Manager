@@ -70,3 +70,21 @@ class RequestForm(FlaskForm):
 class OwnerActionForm(FlaskForm):
     action = SelectField('Action', choices=[('approve', 'Approve'), ('reject', 'Reject')], validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Request Password Reset')
+
+    # Checks if the supplied email address exists, and if no,
+    # It raises a WTForm concise error message instead of the ugly flask's
+    def validate_email(self, email):
+        user = Mechanics.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email, it must be created first.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
