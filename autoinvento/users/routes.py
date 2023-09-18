@@ -1,11 +1,11 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app, jsonify
 from autoinvento.users.forms import CreateMechanicForm, LoginForm, UpdateAccountForm, RequestForm, UpdateMechanicForm, OwnerActionForm, RequestResetForm, ResetPasswordForm
 from autoinvento.users.utils import save_picture, send_reset_email
 from autoinvento import db, bcrypt, mail
 from flask_mail import Message
-from sqlalchemy import func
 from autoinvento.models import Mechanics, Supplier, InventoryItem, InventoryRequest
 from flask_login import login_user, current_user, logout_user, login_required
+from sqlalchemy import func
 
 
 users = Blueprint('users', __name__)
@@ -222,23 +222,6 @@ def submit_request():
     return render_template('submit_request.html', title='Submit Request', form=form)
 
 
-@users.route('/api/inventory-data')
-def get_inventory_supplier_data():
-    # Query the database to get the quantity of items supplied by each supplier
-    supplier_data = (
-        Supplier.query
-        .join(InventoryItem, Supplier.id == InventoryItem.supplier_id)
-        .with_entities(Supplier.name, func.sum(InventoryItem.quantity).label('total_quantity'))
-        .group_by(Supplier.name)
-        .all()
-    )
-
-    # Convert the data to a format suitable for returning as JSON
-    data_for_chart = [{'supplier': item[0], 'total_quantity': item[1]} for item in supplier_data]
-
-    return jsonify(data_for_chart)
-
-
 
 """ MECHANIC REQUEST ROUTES """
 
@@ -337,3 +320,21 @@ def reset_token(token):
         flash(f'Your password is updated!', 'success')
         return redirect(url_for('users.login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+
+@users.route('/api/user-inventory-usage')
+@login_required
+def get_user_inventory_usage_data():
+    # Query the database to get the quantity of items used by each user
+    user_usage_data = (
+        Mechanics.query
+        .join(InventoryRequest, Mechanics.id == InventoryRequest.mechanic_id)
+        .with_entities(Mechanics.username, func.sum(InventoryRequest.quantity_requested).label('total_quantity'))
+        .group_by(Mechanics.username)
+        .all()
+    )
+
+    # Convert the data to a format suitable for returning as JSON
+    data_for_chart = [{'username': item[0], 'total_quantity': item[1]} for item in user_usage_data]
+
+    return jsonify(data_for_chart)
