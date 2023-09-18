@@ -319,6 +319,10 @@ tr:nth-child(even) {
   font-size: var(--font-size-small);
 }
 
+.dropdown-item {
+  /* reducing the padding around the drop down item*/
+  padding: 2px;
+}
 .bi.bi-arrow-up-right {
   color: red;
 }
@@ -327,12 +331,29 @@ tr:nth-child(even) {
   color: var(--color-primary);
 }
 
+.btn-info {
+  background-color: var(--color-primary);
+}
+
 /* alerting */
 .alert.alert-info {
   width: 300px;
   justify-content: center;
   margin: auto;
 }
+
+.alert.alert-danger {
+  width: 450px;
+  justify-content: center;
+  margin: auto;
+}
+
+.alert.alert-success {
+  width: 400px;
+  justify-content: center;
+  margin: auto;
+}
+
 /* adding space btw the charts*/
 .col-md-6 {
   padding: 10px;
@@ -443,4 +464,20 @@ tr:nth-child(even) {
 
 .container.mt-4 {
   background-color: var(--color-background);
+}
+
+.video {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 100%;
 }

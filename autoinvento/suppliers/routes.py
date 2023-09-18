@@ -1,8 +1,9 @@
-from flask import Blueprint, flash, redirect, url_for, render_template, request
+from flask import Blueprint, flash, redirect, url_for, render_template, request, jsonify
 from flask_login import current_user, login_required
 from autoinvento.suppliers.forms import AddSupplier
 from autoinvento.models import Supplier, InventoryItem
 from autoinvento import db
+from sqlalchemy import func
 
 
 supplier = Blueprint('supplier', __name__)
@@ -76,3 +77,21 @@ def delete_supplier(supplier_id):
     db.session.commit()
     flash('Supplier deleted successfully!', 'success')
     return redirect(url_for('suppliers', supplier=supplier))
+
+
+@supplier.route('/api/inventory-data')
+@login_required
+def get_inventory_supplier_data():
+    # Query the database to get the quantity of items supplied by each supplier
+    supplier_data = (
+        Supplier.query
+        .join(InventoryItem, Supplier.id == InventoryItem.supplier_id)
+        .with_entities(Supplier.name, func.sum(InventoryItem.quantity).label('total_quantity'))
+        .group_by(Supplier.name)
+        .all()
+    )
+
+    # Convert the data to a format suitable for returning as JSON
+    data_for_chart = [{'supplier': item[0], 'total_quantity': item[1]} for item in supplier_data]
+
+    return jsonify(data_for_chart)

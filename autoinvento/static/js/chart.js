@@ -1,15 +1,16 @@
+/* eslint-disable jest/require-hook */
 /* eslint-disable no-undef */
 const ctx = document.getElementById('myChart');
 
 const myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: [''],
+    labels: [], // Populate this with user names
     datasets: [{
       data: [],
 
       // Change these colours to customize the chart
-      backgroundColor: ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600'],
+      backgroundColor: ['#ff6361', '#bc5090', '#58508d', '#ffa600', '#003f5c'],
     }],
   },
   options: {
@@ -23,7 +24,7 @@ const myChart = new Chart(ctx, {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Supplier',
+          labelString: 'Mechanics',
         },
       }],
       yAxes: [{
@@ -43,11 +44,10 @@ const myChart = new Chart(ctx, {
 
 // Function to fetch data from the API and update the chart
 function updateChart() {
-  // eslint-disable-next-line no-undef
-  fetch('/api/inventory-data')
+  fetch('/api/user-inventory-usage')
     .then((response) => response.json())
     .then((data) => {
-      myChart.data.labels = data.map((item) => item.supplier);
+      myChart.data.labels = data.map((item) => item.username);
       myChart.data.datasets[0].data = data.map((item) => item.total_quantity);
       myChart.update();
     })
@@ -57,7 +57,6 @@ function updateChart() {
 }
 
 // Initial chart update
-// eslint-disable-next-line jest/require-hook
 updateChart();
 
 // Script for Supply Chart
