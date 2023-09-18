@@ -1,29 +1,44 @@
 {% extends 'base.html' %} {% block content %}
-<h2>Manage Mechanics</h2>
+<style>
+  /* Custom CSS for centering content and extending the page */
+  body {
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.2),
+        rgba(34, 14, 91, 0.3)
+      ),
+      url("{{ url_for('static', filename='images/auto-image.jpg') }}");
+    background-size: contain;
+    background-position: center;
+  }
+</style>
+<h2 style="color:aliceblue">Manage Mechanics</h2>
 <div class="container background">
-    <div class="col-md-2 float-right">
-      <div class="card p-2">
-        <a class="btn btn-sm btn-secondary" href="{{ url_for('users.create_mechanic') }}"
-          >Add Mechanic</a
-        >
-      </div>
+  <div class="col-md-2 float-right">
+    <div class="card p-2">
+      <a
+        class="btn btn-sm btn-secondary"
+        href="{{ url_for('users.create_mechanic') }}"
+        >Add Mechanic</a
+      >
     </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Mechanic</th>
-        <th>Email</th>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Mechanic</th>
+          <th>Email</th>
           <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in users %}
-      <tr>
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
             <div class="dropdown">
               <button
                 class="btn btn-info dropdown-toggle"
@@ -35,7 +50,9 @@
               </button>
               <ul class="dropdown-menu">
                 <li>
-                  <a href="{{ url_for('users.update_mechanic', mechanic_id=user.id) }}">
+                  <a
+                    href="{{ url_for('users.update_mechanic', mechanic_id=user.id) }}"
+                  >
                     <button class="btn btn-secondary btn-sm">Update</button>
                   </a>
                 </li>
@@ -97,11 +114,12 @@
                 </div>
               </div>
             </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   <!-- Pagination links (if you're using Flask's pagination) -->
   {{ users.links }}
 </div>

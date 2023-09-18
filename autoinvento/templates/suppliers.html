@@ -32,57 +32,59 @@
         >
       </div>
     </div>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for supplier in suppliers %}
-        <tr>
-          <td>{{ supplier.id }}</td>
-          <td>{{ supplier.name }}</td>
-          <td>{{ supplier.email }}</td>
-          <td>{{ supplier.contact }}</td>
-          <td>
-            <div class="dropdown">
-              <button
-                class="btn btn-info dropdown-toggle"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Actions
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('supplier.view_supplier', supplier_id=supplier.id) }}"
-                  >
-                    <button class="btn btn-secondary">View</button>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item"
-                    href="{{ url_for('supplier.update_supplier', supplier_id=supplier.id) }}"
-                  >
-                    <button class="btn btn-info">Update</button>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for supplier in suppliers %}
+          <tr>
+            <td>{{ supplier.id }}</td>
+            <td>{{ supplier.name }}</td>
+            <td>{{ supplier.email }}</td>
+            <td>{{ supplier.contact }}</td>
+            <td>
+              <div class="dropdown">
+                <button
+                  class="btn btn-info dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Actions
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('supplier.view_supplier', supplier_id=supplier.id) }}"
+                    >
+                      <button class="btn btn-secondary">View</button>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('supplier.update_supplier', supplier_id=supplier.id) }}"
+                    >
+                      <button class="btn btn-info">Update</button>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 {% endblock content %}
