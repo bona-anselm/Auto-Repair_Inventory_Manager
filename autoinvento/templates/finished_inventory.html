@@ -1,4 +1,16 @@
 {% extends "base.html" %} {% block content %}
+<style>
+  /* Custom CSS for centering content and extending the page */
+  body {
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.1),
+        rgba(34, 14, 91, 0.1)
+      ),
+      url("{{ url_for('static', filename='images/outa.jpg') }}");
+    background-size: cover;
+    background-position: center;
+  }
+</style>
 <h3>Out of Stock</h3>
 <div class="container mt-4 background">
   <div class="col-md-2 float-right">

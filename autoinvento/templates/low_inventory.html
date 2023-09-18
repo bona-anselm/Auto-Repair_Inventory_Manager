@@ -1,17 +1,17 @@
 {% extends "base.html" %} {% block content %}
 <style>
+  /* Custom CSS for centering content and extending the page */
   body {
     background-image: linear-gradient(
-        rgba(34, 14, 91, 0),
-        rgba(34, 14, 91, 0.5)
+        rgba(34, 14, 91, 0.1),
+        rgba(34, 14, 91, 0.3)
       ),
-      url("{{ url_for('static', filename='images/low_stock.jpg') }}");
-    background-size: contain;
-    background-repeat: no-repeat;
+      url("{{ url_for('static', filename='images/outa.jpg') }}");
+    background-size: cover;
     background-position: center;
   }
 </style>
-<h3>Low Stock</h3>
+<h3 style="color: aliceblue">Low Stock</h3>
 <div class="container mt-4 background">
   <div class="col-md-2 float-right">
     <div class="card p-2">
