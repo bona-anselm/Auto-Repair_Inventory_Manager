@@ -1,6 +1,123 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<main>
+  <section class="section-hero hero-homepage mt-2">
+    <div class="container">
+      <div class="section-body">
+        <section class="section-inner">
+          <h1 class="section-title hero">
+            Welcome to <span style="color: brown">AutoInvento</span>
+          </h1>
+          <h4 style="color: white; margin: auto">
+            The automobile repair inventory management app
+          </h4>
+        </section>
+      </div>
+    </div>
+  </section>
 
-{% block content %}
-    <h1>Welcome to AutoInvento</h1>
-    <h4>The auto-repair inventory management app</h4>
+  <!-- About Us -->
+  <section id="about" class="section section-about">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">About AutoInvento</h2>
+      </header>
+      <div class="section-body">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <img
+              src="{{ url_for('static', filename='images/about_us.jpg') }}"
+              alt="about"
+              width="500px"
+              height="500px"
+              class="img-fluid"
+            />
+          </div>
+          <div class="col-md-8 col-sm-12">
+            <p>
+              Welcome to AutoInvento, the ultimate solution for efficient auto
+              parts and tools management. At AutoInvento, we're dedicated to
+              streamlining the inventory management process for your auto repair
+              shop, making it easier than ever to keep track of stock levels,
+              fulfill staff requests, and ensure that you never run out of
+              essential parts.
+            </p>
+
+            <h3><span>Our</span> Mission</h3>
+            <p>
+              At AutoInvento, our mission is to empower auto repair businesses
+              with innovative tools that simplify inventory management. We
+              understand the challenges of maintaining an organized and
+              well-stocked workshop, and our app is designed to address these
+              challenges head-on.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- why Autoinvento -->
+      <section id="why-autoinvento" class="section section-why">
+        <div class="container">
+          <header class="section-header">
+            <h2 class="section-title">Why AutoInvento?</h2>
+          </header>
+          <div class="section-body">
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <div class="">
+                  <img
+                    src="{{ url_for('static', filename='images/dashboard.png') }}"
+                    alt="dashboard"
+                    class="img-fluid"
+                    width="300px"
+                    height="300px"
+                  />
+                </div>
+                <h6 class="center">Streamlined Inventory Management</h6>
+                <p>
+                  We provide a user-friendly platform that allows you to
+                  effortlessly monitor your inventory, track product quantities,
+                  and receive low stock alerts.
+                </p>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div class="">
+                  <img
+                    src="{{ url_for('static', filename='images/make_requ.png') }}"
+                    alt="request"
+                    class="img-fluid"
+                    width="300px"
+                    height="300px"
+                  />
+                </div>
+                <h6 class="center">Efficient Staff Requests</h6>
+                <p>
+                  AutoInvento enables staff to request tools and parts
+                  seamlessly, making it easy for you to review and fulfill these
+                  requests in a timely manner.
+                </p>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <div class="">
+                  <img
+                    src="{{ url_for('static', filename='images/low_stock.png') }}"
+                    alt="low stock"
+                    class="img-fluid"
+                    width="300px"
+                    height="300px"
+                  />
+                </div>
+                <h6 class="center">Prevent Stockouts</h6>
+                <p>
+                  We help you avoid the frustration of running out of critical
+                  parts by alerting you when stock levels are low, ensuring you
+                  can restock in advance.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</main>
 {% endblock content %}

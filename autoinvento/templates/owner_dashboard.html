@@ -10,11 +10,14 @@
           <div class="card-body">
             <div class="float-right">
               <a href="{{ url_for('inventory.view_inventories') }}"
-                ><i class="bi bi-arrow-up-right"></i
+                ><i class="bi bi-arrow-up-right" style="font-size:large"></i
               ></a>
             </div>
-            <h5 class="card-title">Total Products</h5>
-            <p class="card-text" style="color:green">{{ total_products }}</p>
+            <div class="float-left mr-4 mt-1">
+              <i class="bi bi-box2" style="font-size:large"></i>
+            </div>
+            <h5 class="card-title" style="font-size:large">Total Products</h5>
+            <p class="card-text" style="color:green; font-size:large">{{ total_products }}</p>
           </div>
         </div>
       </div>
@@ -23,11 +26,14 @@
           <div class="card-body">
             <div class="float-right">
               <a href="{{ url_for('inventory.low_inventory') }}"
-                ><i class="bi bi-arrow-up-right"></i
+                ><i class="bi bi-arrow-up-right" style="font-size:large"></i
               ></a>
             </div>
-            <h5 class="card-title" style="color:goldenrod">Low Stock</h5>
-            <p class="card-text">{{ total_low_stock }}</p>
+            <div class="float-left mr-4 mt-1">
+              <i class="bi bi-box2" style="font-size:large"></i>
+            </div>
+            <h5 class="card-title" style="color:goldenrod; font-size:large">Low Stock</h5>
+            <p class="card-text" style="font-size:large">{{ total_low_stock }}</p>
           </div>
         </div>
       </div>
@@ -36,11 +42,14 @@
           <div class="card-body">
             <div class="float-right">
               <a href="{{ url_for('inventory.finished_inventory') }}"
-                ><i class="bi bi-arrow-up-right"></i
+                ><i class="bi bi-arrow-up-right" style="font-size:large"></i
               ></a>
             </div>
-            <h5 class="card-title" style="color:red">Out of Stock</h5>
-            <p class="card-text" style="color:red">{{ total_stock_out }}</p>
+            <div class="float-left mr-4 mt-1">
+              <i class="bi bi-box2" style="font-size:large"></i>
+            </div>
+            <h5 class="card-title" style="color:red; font-size:large">Out of Stock</h5>
+            <p class="card-text" style="color:red; font-size:large">{{ total_stock_out }}</p>
           </div>
         </div>
       </div>
@@ -49,11 +58,14 @@
           <div class="card-body">
             <div class="float-right">
               <a href="{{ url_for('supplier.suppliers') }}"
-                ><i class="bi bi-arrow-up-right"></i
+                ><i class="bi bi-arrow-up-right" style="font-size:large"></i
               ></a>
             </div>
-            <h5 class="card-title" style="color: rgb(124, 9, 47)">Suppliers</h5>
-            <p class="card-text" style="color: rgb(124, 9, 47)">{{ total_suppliers }}</p>
+            <div class="float-left mr-4 mt-1">
+              <i class="bi bi-view-list" style="font-size:large"></i>
+            </div>
+            <h5 class="card-title" style="color: rgb(124, 9, 47); font-size:large">Suppliers</h5>
+            <p class="card-text" style="color: rgb(124, 9, 47); font-size:large">{{ total_suppliers }}</p>
           </div>
         </div>
       </div>
@@ -62,18 +74,21 @@
           <div class="card-body">
             <div class="float-right">
               <a href="{{ url_for('users.mechanics') }}"
-                ><i class="bi bi-arrow-up-right"></i
+                ><i class="bi bi-arrow-up-right" style="font-size:large"></i
               ></a>
             </div>
-            <h5 class="card-title" style="color:blueviolet">Mechanics</h5>
-            <p class="card-text">{{ mechanics }}</p>
+            <div class="float-left mr-4 mt-1">
+              <i class="bi bi-person-fill-gear" style="font-size:large"></i>
+            </div>
+            <h5 class="card-title" style="color:blueviolet; font-size:large">Mechanics</h5>
+            <p class="card-text" style="font-size:large">{{ mechanics }}</p>
           </div>
         </div>
       </div>
       <div class="col-md-3 mt-4">
         <div class="card">
           <div class="card-body ml-5">
-            <a class="btn btn-primary" href="{{ url_for('inventory.add_inventory') }}"
+            <a class="btn btn-primary" style="font-size:medium" href="{{ url_for('inventory.add_inventory') }}"
               >Add Inventory</a
             >
           </div>
@@ -82,7 +97,7 @@
       <div class="col-md-3 mt-4">
         <div class="card">
           <div class="card-body ml-5">
-            <a class="btn btn-primary" href="{{ url_for('users.create_mechanic') }}"
+            <a class="btn btn-primary" style="font-size:medium" href="{{ url_for('users.create_mechanic') }}"
               >Add Mechanics</a
             >
           </div>
@@ -91,7 +106,7 @@
       <div class="col-md-3 mt-4">
         <div class="card">
           <div class="card-body ml-5">
-            <a class="btn btn-primary" href="{{ url_for('supplier.add_suppliers') }}"
+            <a class="btn btn-primary" style="font-size:medium" href="{{ url_for('supplier.add_suppliers') }}"
               >Add Suppliers</a
             >
           </div>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, url_for, redirect
+from flask import Blueprint, render_template, flash, url_for, redirect, request
 from flask_login import login_required, current_user
 from autoinvento import db
 from autoinvento.models import InventoryItem, Supplier
@@ -8,11 +8,11 @@ from autoinvento.inventory.forms import AddInventory
 inventory = Blueprint('inventory', __name__)
 
 
-
 @inventory.route('/inventory/view', methods=['GET', 'POST'])
 @login_required
 def view_inventories():
-    inventories = InventoryItem.query.all()
+    page = request.args.get('page', 1, type=int)
+    inventories = InventoryItem.query.paginate(page=page, per_page=8)
     return render_template('view_inventories.html', title='Inventories', inventories=inventories)
 
 

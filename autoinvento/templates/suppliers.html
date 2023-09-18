@@ -1,63 +1,88 @@
 {% extends "base.html" %} {% block content %}
-<div class="container mt-4 background">
-  <h3>Suppliers</h3>
-  <div class="col-md-2 float-right">
-    <div class="card p-2">
-      <a class="btn btn-sm btn-secondary" href="{{ url_for('supplier.add_suppliers') }}"
-        >Add Supplier</a
-      >
+<style>
+  /* Custom CSS for centering content and extending the page */
+  body {
+    background-color: rgba(34, 14, 91);
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(
+        rgba(34, 14, 91, 0.1),
+        rgba(34, 14, 91, 0.5)
+      ),
+      url("{{ url_for('static', filename='images/tools.jpg') }}");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .container_supplier {
+    max-width: 100%;
+    box-sizing: border-box; /* Include padding in width calculation */
+    overflow-x: hidden; /* Hide horizontal overflow */
+  }
+</style>
+
+<div class="container_supplier">
+  <div class="container mt-4 background">
+    <h3 class="pt-2">Suppliers</h3>
+    <div class="col-md-2 float-right">
+      <div class="card p-2 mb-2">
+        <a
+          class="btn btn-sm btn-secondary pb-2"
+          href="{{ url_for('supplier.add_suppliers') }}"
+          >Add Supplier</a
+        >
+      </div>
     </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for supplier in suppliers %}
+        <tr>
+          <td>{{ supplier.id }}</td>
+          <td>{{ supplier.name }}</td>
+          <td>{{ supplier.email }}</td>
+          <td>{{ supplier.contact }}</td>
+          <td>
+            <div class="dropdown">
+              <button
+                class="btn btn-info dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{{ url_for('supplier.view_supplier', supplier_id=supplier.id) }}"
+                  >
+                    <button class="btn btn-secondary">View</button>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="{{ url_for('supplier.update_supplier', supplier_id=supplier.id) }}"
+                  >
+                    <button class="btn btn-info">Update</button>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Address</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for supplier in suppliers %}
-      <tr>
-        <td>{{ supplier.id }}</td>
-        <td>{{ supplier.name }}</td>
-        <td>{{ supplier.email }}</td>
-        <td>{{ supplier.contact }}</td>
-        <td>
-          <div class="dropdown">
-            <button
-              class="btn btn-info dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Actions
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="{{ url_for('supplier.view_supplier', supplier_id=supplier.id) }}"
-                >
-                <button class="btn btn-secondary">View</button>
-                </a>
-              </li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="{{ url_for('supplier.update_supplier', supplier_id=supplier.id) }}"
-                >
-                <button class="btn btn-info">Update</button>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 </div>
 {% endblock content %}

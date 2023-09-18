@@ -1,48 +1,120 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<style>
+  /* Custom CSS for centering content and extending the page */
+  body {
+    background-image: url("{{ url_for('static', filename='images/auto-image.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+  }
 
-{% block content %}
-    <div class="content-section">
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Login</legend>
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label") }}
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.email.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }}
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.password.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-check">
-                    {{ form.remember(class="form-check-input") }}
-                    {{ form.remember.label(class="form-check-label") }}
-                  </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-            <small class="text-muted ml-2">
-                <a href="#">Forgot Password?</a>
-            </small>
-        </form>
-    </div>
+  .container-login {
+    min-height: 100vh; /* Adjust as needed for desired height */
+    width: 400px;
+    padding-top: 20px;
+    margin: auto;
+  }
+
+  .content-section {
+    background-color: #f8f9fa;
+    margin-bottom: 20px;
+    padding: 50px;
+    max-width: 400px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 5px 5px 5px #220e5b;
+    border-radius: 10px;
+  }
+
+  .btn.btn-outline-info {
+    /* adding padding around the login button*/
+    background-image: none;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  .btn.btn-outline-info:hover {
+    /* hover for longin button*/
+    background: #220e5b;
+  }
+  .border-top.pt-3 .text-muted {
+    color: #220e5b;
+  }
+  .text-muted.ml-2 a {
+    color: #e80f0f;
+    font-size: medium;
+  }
+
+  .text-muted.ml-2:hover a {
+    color: #220e5b;
+  }
+
+  .border-bottom.mb-4 {
+    /* the Login heading */
+    padding-bottom: 5px;
+    font-size: x-large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .form-group.login {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  /* alerting */
+  .alert.alert-danger {
+    width: 350px;
+    justify-content: center;
+    margin: auto;
+  }
+</style>
+
+<div class="container-login">
+  <div class="content-section">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Login</legend>
+        <div class="form-group">
+          {{ form.email.label(class="form-control-label") }} {% if
+          form.email.errors %} {{ form.email(class="form-control
+          form-control-lg") }}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.email(class="form-control form-control-lg") }} {%
+          endif %}
+        </div>
+        <div class="form-group">
+          {{ form.password.label(class="form-control-label") }} {% if
+          form.password.errors %} {{ form.password(class="form-control
+          form-control-lg") }}
+          <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.password(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-check">
+          {{ form.remember(class="form-check-input") }} {{
+          form.remember.label(class="form-check-label ml-2") }}
+        </div>
+      </fieldset>
+      <div class="form-group login">
+        {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+      <small class="text-muted ml-2">
+        <a href="#">Forgot Password?</a>
+      </small>
+    </form>
+  </div>
+</div>
 {% endblock content %}

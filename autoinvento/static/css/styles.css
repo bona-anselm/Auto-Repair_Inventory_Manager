@@ -31,6 +31,12 @@
   --section-tagline-margin: 0;
   /* Button */
   --button-display: inline-block;
+  /* section */
+  --section-padding: 4rem 0;
+  --section-header-padding: 0 0 3rem;
+  --section-body-padding: 0 0 3rem;
+  --section-header-align: center;
+  --section-title-margin: 0;
 }
 
 html {
@@ -57,7 +63,10 @@ h6 {
   font-family: var(--font-family-title);
   font-weight: var(--font-weight-bold);
 }
-
+h6 {
+  font-size: var(--font-size-medium);
+  padding: 20px;
+}
 a:hover {
   transform: scale(1.2); /* Zoom in by 20% */
   color: white;
@@ -95,6 +104,85 @@ a:hover {
   border-radius: 3px;
   margin-bottom: 20px;
   width: 70%;
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.col-md-8.col-sm-12 {
+  padding: 5px;
+  font-size: var(--font-size-large);
+}
+
+.col-md-4.col-sm-12 {
+  padding: 5px;
+  font-size: var(--font-size-large);
+  justify-content: space-between;
+}
+/* Adding padding to sections */
+.section {
+  padding: var(--section-padding);
+}
+
+.section-header {
+  text-align: var(--section-header-align);
+  padding: var(--section-header-padding);
+}
+
+.section-body {
+  padding: var(--section-body-padding);
+}
+
+.section-title {
+  margin: var(--section-title-margin);
+}
+
+.section-hero {
+  position: relative;
+  margin-top: -8.5rem;
+}
+
+.section-title.hero {
+  color: var(--color-white);
+  font-size: var(--font-size-xx-large);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  justify-content: center;
+  margin: auto;
+}
+
+.hero-homepage {
+  background-color: var(--color-primary);
+  background-position: 90% 10rem;
+  background-repeat: no-repeat;
+  background-size: 30rem auto;
+}
+
+.section-hero .section-body {
+  padding: 10rem 4rem;
+}
+
+.section-hero .section-title {
+  margin-bottom: 2rem;
+}
+
+.section-hero .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 5vh;
+}
+.section.section-why {
+  background: #dddddd;
+  margin: 20px;
+  padding: 20px;
+}
+
+.center {
+  text-align: center;
+  color: brown;
 }
 
 .article-title {
@@ -201,6 +289,9 @@ tr:nth-child(even) {
 }
 
 .moving-text {
+  font-family: "Indie Flower", cursive;
+  font-style: italic;
+  color: #736f7d;
   position: relative; /* Make it a positioned element */
   white-space: nowrap; /* Prevent text from wrapping */
   animation: moveText 60s linear infinite; /* Apply the animation to the text */
@@ -236,6 +327,12 @@ tr:nth-child(even) {
   color: var(--color-primary);
 }
 
+/* alerting */
+.alert.alert-info {
+  width: 300px;
+  justify-content: center;
+  margin: auto;
+}
 /* adding space btw the charts*/
 .col-md-6 {
   padding: 10px;
