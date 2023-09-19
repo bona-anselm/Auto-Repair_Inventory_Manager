@@ -25,8 +25,8 @@ Only the owner who is a super user can create mechanics and the app can only be 
 
 
 
-> ### Installation
-> -----------------
+### Installation
+-----------------
 > To use the app, install it be running the following command preferably in a virtual environment.
 >
 > ```pip install -r requirements.txt```
