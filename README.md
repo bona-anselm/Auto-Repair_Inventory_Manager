@@ -28,11 +28,11 @@ Only the owner who is a super user can create mechanics and the app can only be 
 > ### Installation
 > -----------------
 > To use the app, install it be running the following command preferably in a virtual environment.
-
+>
 > ```pip install -r requirements.txt```
-
+>
 > After the dependencies have been installed, to run the app, use the command
-
+>
 > ```python3 run.py``` or ```python3 -m run``` 
 
 
@@ -40,4 +40,5 @@ Only the owner who is a super user can create mechanics and the app can only be 
 ### AUTHORS
 -----------------
 Bonaventure Anselm <bona.anselm@gmail.com>
+
 Aina Rachael Damilola <ainaoluwadamilolaracheal@gmail.com>
