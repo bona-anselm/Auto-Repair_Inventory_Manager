@@ -76,7 +76,7 @@ def delete_supplier(supplier_id):
     db.session.delete(supplier)
     db.session.commit()
     flash('Supplier deleted successfully!', 'success')
-    return redirect(url_for('suppliers', supplier=supplier))
+    return redirect(url_for('supplier.suppliers', supplier=supplier))
 
 
 @supplier.route('/api/inventory-data')
