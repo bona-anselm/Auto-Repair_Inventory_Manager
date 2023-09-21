@@ -261,14 +261,14 @@ tr:nth-child(even) {
   background-color: #dbd5d5;
 }
 
-@keyframes mymove {
+/*@keyframes mymove {
   0% {
     background-position: 0% 0%;
   }
   100% {
     background-position: 100% 0%;
   }
-}
+} */
 
 @keyframes moveText {
   0%,
@@ -280,13 +280,13 @@ tr:nth-child(even) {
   }
 }
 
-.chart {
+/* .chart {
   background-image: url("../images/chart.png");
   background-size: 70% 100%;
   background-repeat: repeat-x;
   animation: mymove 10s infinite;
   margin: 15px;
-}
+}*/
 
 .moving-text {
   font-family: "Indie Flower", cursive;
