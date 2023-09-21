@@ -121,6 +121,7 @@ a:hover {
   font-size: var(--font-size-large);
   justify-content: space-between;
 }
+
 /* Adding padding to sections */
 .section {
   padding: var(--section-padding);
@@ -292,8 +293,8 @@ tr:nth-child(even) {
   font-family: "Indie Flower", cursive;
   font-style: italic;
   color: #736f7d;
-  position: relative; /* Make it a positioned element */
-  white-space: nowrap; /* Prevent text from wrapping */
+  position: relative; /* Make it a positioned element */ 
+  white-space: nowrap; /* Prevent text from wrapping */ 
   animation: moveText 60s linear infinite; /* Apply the animation to the text */
   letter-spacing: 2px;
 }
