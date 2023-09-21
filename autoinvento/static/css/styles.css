@@ -121,6 +121,7 @@ a:hover {
   font-size: var(--font-size-large);
   justify-content: space-between;
 }
+
 /* Adding padding to sections */
 .section {
   padding: var(--section-padding);
@@ -261,14 +262,14 @@ tr:nth-child(even) {
   background-color: #dbd5d5;
 }
 
-@keyframes mymove {
+/*@keyframes mymove {
   0% {
     background-position: 0% 0%;
   }
   100% {
     background-position: 100% 0%;
   }
-}
+} */
 
 @keyframes moveText {
   0%,
@@ -280,20 +281,20 @@ tr:nth-child(even) {
   }
 }
 
-.chart {
+/* .chart {
   background-image: url("../images/chart.png");
   background-size: 70% 100%;
   background-repeat: repeat-x;
   animation: mymove 10s infinite;
   margin: 15px;
-}
+}*/
 
 .moving-text {
   font-family: "Indie Flower", cursive;
   font-style: italic;
   color: #736f7d;
-  position: relative; /* Make it a positioned element */
-  white-space: nowrap; /* Prevent text from wrapping */
+  position: relative; /* Make it a positioned element */ 
+  white-space: nowrap; /* Prevent text from wrapping */ 
   animation: moveText 60s linear infinite; /* Apply the animation to the text */
   letter-spacing: 2px;
 }
