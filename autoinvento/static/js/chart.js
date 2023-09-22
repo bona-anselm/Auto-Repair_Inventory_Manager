@@ -10,7 +10,7 @@ const myChart = new Chart(ctx, {
       data: [],
 
       // Change these colours to customize the chart
-      backgroundColor: ['#ff6361', '#bc5090', '#58508d', '#ffa600', '#003f5c'],
+      backgroundColor: ['#ff6361', '#bc5090', '#58508d', '#ffa600', '#003f5c', '#31c205'],
     }],
   },
   options: {
